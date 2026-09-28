@@ -1,0 +1,763 @@
+[
+  {
+    "id": "squares",
+    "concept": "comprehensions",
+    "title": "Even squares",
+    "prompt": "Return squares of even values in their original order.",
+    "starter": "def solve(values):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            1,
+            2,
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          4,
+          16
+        ]
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            -2,
+            0,
+            5
+          ]
+        ],
+        "expected": [
+          4,
+          0
+        ]
+      }
+    ],
+    "hints": [
+      "Filter before transforming.",
+      "Use x % 2 == 0 to identify even values."
+    ],
+    "solution": "def solve(values):\n    return [x*x for x in values if x%2==0]\n"
+  },
+  {
+    "id": "frequencies",
+    "concept": "comprehensions",
+    "title": "Count word frequencies",
+    "prompt": "Return a dictionary mapping each word to its occurrence count.",
+    "starter": "def solve(words):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            "a",
+            "b",
+            "a"
+          ]
+        ],
+        "expected": {
+          "a": 2,
+          "b": 1
+        }
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": {}
+      },
+      {
+        "input": [
+          [
+            "x",
+            "x",
+            "x"
+          ]
+        ],
+        "expected": {
+          "x": 3
+        }
+      }
+    ],
+    "hints": [
+      "Build a dictionary one item at a time.",
+      "dict.get(key, 0) supplies the initial count."
+    ],
+    "solution": "def solve(words):\n    result = {}\n    for word in words:\n        result[word] = result.get(word, 0) + 1\n    return result\n"
+  },
+  {
+    "id": "ordering",
+    "concept": "lambda",
+    "title": "Sort records by score",
+    "prompt": "Return [name, score] records sorted by score ascending; preserve input order for ties.",
+    "starter": "def solve(records):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            [
+              "A",
+              3
+            ],
+            [
+              "B",
+              1
+            ],
+            [
+              "C",
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          [
+            "B",
+            1
+          ],
+          [
+            "A",
+            3
+          ],
+          [
+            "C",
+            3
+          ]
+        ]
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "sorted accepts a key function.",
+      "The score is item 1 in each record."
+    ],
+    "solution": "def solve(records):\n    return sorted(records, key=lambda r:r[1])\n"
+  },
+  {
+    "id": "filtering",
+    "concept": "map-filter-reduce",
+    "title": "Keep positive values",
+    "prompt": "Use filter to return all strictly positive values as a list.",
+    "starter": "def solve(values):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            -1,
+            0,
+            3,
+            2
+          ]
+        ],
+        "expected": [
+          3,
+          2
+        ]
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "The predicate determines which original values survive.",
+      "filter is lazy; materialize the result with list."
+    ],
+    "solution": "def solve(values):\n    return list(filter(lambda x:x>0,values))\n"
+  },
+  {
+    "id": "flatten",
+    "concept": "generators",
+    "title": "Flatten rows lazily",
+    "prompt": "Define an inner generator that yields each value of each row; return its values as a list.",
+    "starter": "def solve(rows):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            [
+              1,
+              2
+            ],
+            [],
+            [
+              3
+            ]
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "Visit rows then values inside each row.",
+      "yield from can delegate to each row."
+    ],
+    "solution": "def solve(rows):\n    def values():\n        for row in rows:\n            yield from row\n    return list(values())\n"
+  },
+  {
+    "id": "iterator",
+    "concept": "iterators",
+    "title": "Take the first n values",
+    "prompt": "Use an iterator to return at most n values. n is non-negative.",
+    "starter": "def solve(values, n):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            1,
+            2
+          ],
+          5
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3
+          ],
+          2
+        ],
+        "expected": [
+          1,
+          2
+        ]
+      },
+      {
+        "input": [
+          [],
+          0
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "next advances an iterator.",
+      "Handle StopIteration when n exceeds the input length."
+    ],
+    "solution": "def solve(values, n):\n    it=iter(values)\n    result=[]\n    for _ in range(n):\n        try: result.append(next(it))\n        except StopIteration: break\n    return result\n"
+  },
+  {
+    "id": "decorator",
+    "concept": "decorators",
+    "title": "Double a function result",
+    "prompt": "Define an inner decorator that doubles a wrapped function result; decorate an identity function and return its result for value.",
+    "starter": "def solve(value):\n    pass",
+    "tests": [
+      {
+        "input": [
+          3
+        ],
+        "expected": 6
+      },
+      {
+        "input": [
+          0
+        ],
+        "expected": 0
+      },
+      {
+        "input": [
+          -4
+        ],
+        "expected": -8
+      }
+    ],
+    "hints": [
+      "A decorator returns a replacement callable.",
+      "Return twice the result from the wrapped function."
+    ],
+    "solution": "def solve(value):\n    def double(fn):\n        def wrapper(x): return 2*fn(x)\n        return wrapper\n    @double\n    def identity(x): return x\n    return identity(value)\n"
+  },
+  {
+    "id": "account",
+    "concept": "classes",
+    "title": "Model a bank account",
+    "prompt": "Define an inner Account class storing balance; add deposit and return the new balance. Inputs are non-negative.",
+    "starter": "def solve(balance, deposit):\n    pass",
+    "tests": [
+      {
+        "input": [
+          100,
+          50
+        ],
+        "expected": 150
+      },
+      {
+        "input": [
+          0,
+          0
+        ],
+        "expected": 0
+      }
+    ],
+    "hints": [
+      "Use instance state for the balance.",
+      "Initialize self.balance and update it in a method."
+    ],
+    "solution": "def solve(balance, deposit):\n    class Account:\n        def __init__(self,balance): self.balance=balance\n        def add(self,amount): self.balance+=amount\n    a=Account(balance)\n    a.add(deposit)\n    return a.balance\n"
+  },
+  {
+    "id": "inherit",
+    "concept": "inheritance",
+    "title": "Extend a base price",
+    "prompt": "Define a base class with a total method and subclass that adds fee through an overridden total method. Return the subclass total.",
+    "starter": "def solve(price, fee):\n    pass",
+    "tests": [
+      {
+        "input": [
+          10,
+          2
+        ],
+        "expected": 12
+      },
+      {
+        "input": [
+          0,
+          5
+        ],
+        "expected": 5
+      }
+    ],
+    "hints": [
+      "The override can reuse base behavior.",
+      "super().total() delegates to the base implementation here."
+    ],
+    "solution": "def solve(price, fee):\n    class Base:\n        def total(self): return price\n    class WithFee(Base):\n        def total(self): return super().total()+fee\n    return WithFee().total()\n"
+  },
+  {
+    "id": "divide",
+    "concept": "exceptions",
+    "title": "Safe division",
+    "prompt": "Return a / b, or None for division by zero.",
+    "starter": "def solve(a, b):\n    pass",
+    "tests": [
+      {
+        "input": [
+          8,
+          2
+        ],
+        "expected": 4.0
+      },
+      {
+        "input": [
+          3,
+          0
+        ],
+        "expected": null
+      },
+      {
+        "input": [
+          -6,
+          2
+        ],
+        "expected": -3.0
+      }
+    ],
+    "hints": [
+      "Catch the exception that division raises.",
+      "Keep the try block focused on division."
+    ],
+    "solution": "def solve(a, b):\n    try: return a/b\n    except ZeroDivisionError: return None\n"
+  },
+  {
+    "id": "json",
+    "concept": "json",
+    "title": "Read a JSON field",
+    "prompt": "Decode a JSON object and return its value for key, or None if absent.",
+    "starter": "def solve(text, key):\n    pass",
+    "tests": [
+      {
+        "input": [
+          "{\"a\": 3}",
+          "a"
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          "{}",
+          "x"
+        ],
+        "expected": null
+      }
+    ],
+    "hints": [
+      "Decode before accessing fields.",
+      "dict.get handles a missing key."
+    ],
+    "solution": "def solve(text, key):\n    import json\n    return json.loads(text).get(key)\n"
+  },
+  {
+    "id": "csv",
+    "concept": "csv",
+    "title": "Read quoted CSV",
+    "prompt": "Parse CSV text into a list of rows, retaining quoted commas.",
+    "starter": "def solve(text):\n    pass",
+    "tests": [
+      {
+        "input": [
+          "name,value\n\"a,b\",2\n"
+        ],
+        "expected": [
+          [
+            "name",
+            "value"
+          ],
+          [
+            "a,b",
+            "2"
+          ]
+        ]
+      },
+      {
+        "input": [
+          "x,y\n1,2\n"
+        ],
+        "expected": [
+          [
+            "x",
+            "y"
+          ],
+          [
+            "1",
+            "2"
+          ]
+        ]
+      }
+    ],
+    "hints": [
+      "Use a CSV parser, not split.",
+      "StringIO adapts a string to a file-like object."
+    ],
+    "solution": "def solve(text):\n    import csv,io\n    return list(csv.reader(io.StringIO(text)))\n"
+  },
+  {
+    "id": "regex",
+    "concept": "regex",
+    "title": "Extract integer tokens",
+    "prompt": "Return all consecutive digit groups as integers, in order. Ignore signs.",
+    "starter": "def solve(text):\n    pass",
+    "tests": [
+      {
+        "input": [
+          "A12 B3"
+        ],
+        "expected": [
+          12,
+          3
+        ]
+      },
+      {
+        "input": [
+          "none"
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          "x007"
+        ],
+        "expected": [
+          7
+        ]
+      }
+    ],
+    "hints": [
+      "Match one or more digits.",
+      "Convert each matched string with int."
+    ],
+    "solution": "def solve(text):\n    import re\n    return [int(x) for x in re.findall(r\"\\d+\",text)]\n"
+  },
+  {
+    "id": "xml",
+    "concept": "xml",
+    "title": "Read XML attributes",
+    "prompt": "Parse trusted XML and return the id attributes of direct child item elements, skipping missing ids.",
+    "starter": "def solve(text):\n    pass",
+    "tests": [
+      {
+        "input": [
+          "<root><item id=\"a\"/><item/><item id=\"b\"/></root>"
+        ],
+        "expected": [
+          "a",
+          "b"
+        ]
+      },
+      {
+        "input": [
+          "<root/>"
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "An element has an attribute dictionary.",
+      "Find direct child item elements before reading id."
+    ],
+    "solution": "def solve(text):\n    import xml.etree.ElementTree as ET\n    return [x.attrib[\"id\"] for x in ET.fromstring(text).findall(\"item\") if \"id\" in x.attrib]\n"
+  },
+  {
+    "id": "property",
+    "concept": "encapsulation",
+    "title": "Validate a non-negative value",
+    "prompt": "Define an inner class with a property setter that rejects negatives. Return value if accepted, otherwise the string invalid.",
+    "starter": "def solve(value):\n    pass",
+    "tests": [
+      {
+        "input": [
+          3
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          -1
+        ],
+        "expected": "invalid"
+      },
+      {
+        "input": [
+          0
+        ],
+        "expected": 0
+      }
+    ],
+    "hints": [
+      "A property setter can enforce an invariant.",
+      "Raise ValueError for negative values and catch it outside."
+    ],
+    "solution": "def solve(value):\n    class Number:\n        @property\n        def value(self): return self._value\n        @value.setter\n        def value(self,x):\n            if x<0: raise ValueError()\n            self._value=x\n    try:\n        n=Number(); n.value=value; return n.value\n    except ValueError: return \"invalid\"\n"
+  },
+  {
+    "id": "dunder",
+    "concept": "dunder",
+    "title": "Give a container a length",
+    "prompt": "Define an inner class implementing __len__ and return len(instance) for the supplied values.",
+    "starter": "def solve(values):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": 3
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": 0
+      }
+    ],
+    "hints": [
+      "len uses the special-method protocol.",
+      "__len__ must return a non-negative integer."
+    ],
+    "solution": "def solve(values):\n    class Container:\n        def __len__(self): return len(values)\n    return len(Container())\n"
+  },
+  {
+    "id": "operators",
+    "concept": "operators",
+    "title": "Add two vectors",
+    "prompt": "Inputs are two-element lists. Define a Vector class with __add__ and return the summed vector as a list.",
+    "starter": "def solve(a, b):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            1,
+            2
+          ],
+          [
+            3,
+            4
+          ]
+        ],
+        "expected": [
+          4,
+          6
+        ]
+      },
+      {
+        "input": [
+          [
+            0,
+            0
+          ],
+          [
+            -1,
+            2
+          ]
+        ],
+        "expected": [
+          -1,
+          2
+        ]
+      }
+    ],
+    "hints": [
+      "Addition should combine corresponding coordinates.",
+      "Return a Vector from __add__, then expose its coordinates."
+    ],
+    "solution": "def solve(a, b):\n    class Vector:\n        def __init__(self,v): self.v=v\n        def __add__(self,other): return Vector([self.v[0]+other.v[0],self.v[1]+other.v[1]])\n    return (Vector(a)+Vector(b)).v\n"
+  },
+  {
+    "id": "memo",
+    "concept": "profiling",
+    "title": "Find duplicates in linear expected time",
+    "prompt": "Return each repeated value once, in order of its first repeat. Use sets rather than repeated full-list searches.",
+    "starter": "def solve(values):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            2,
+            1,
+            2,
+            1,
+            2
+          ]
+        ],
+        "expected": [
+          2,
+          1
+        ]
+      },
+      {
+        "input": [
+          []
+        ],
+        "expected": []
+      },
+      {
+        "input": [
+          [
+            1,
+            2,
+            3
+          ]
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "Track values already seen and values already reported.",
+      "Append only on the first repeated occurrence."
+    ],
+    "solution": "def solve(values):\n    seen=set(); repeated=set(); out=[]\n    for x in values:\n        if x in seen and x not in repeated: out.append(x); repeated.add(x)\n        seen.add(x)\n    return out\n"
+  },
+  {
+    "id": "rest",
+    "concept": "rest",
+    "title": "Collect paginated responses",
+    "prompt": "Given a list of decoded API page dictionaries, concatenate their items lists; absent items means empty.",
+    "starter": "def solve(pages):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            {
+              "items": [
+                1,
+                2
+              ]
+            },
+            {
+              "items": [
+                3
+              ]
+            }
+          ]
+        ],
+        "expected": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "input": [
+          [
+            {}
+          ]
+        ],
+        "expected": []
+      }
+    ],
+    "hints": [
+      "Visit each page then each item.",
+      "Use get for pages without an items key."
+    ],
+    "solution": "def solve(pages):\n    return [item for page in pages for item in page.get(\"items\",[])]\n"
+  },
+  {
+    "id": "transaction",
+    "concept": "integration",
+    "title": "Validate before saving",
+    "prompt": "Return only dictionaries that contain a nonempty name string and a non-negative integer score (exclude booleans).",
+    "starter": "def solve(records):\n    pass",
+    "tests": [
+      {
+        "input": [
+          [
+            {
+              "name": "A",
+              "score": 3
+            },
+            {
+              "name": "",
+              "score": 2
+            },
+            {
+              "name": "B",
+              "score": true
+            }
+          ]
+        ],
+        "expected": [
+          {
+            "name": "A",
+            "score": 3
+          }
+        ]
+      }
+    ],
+    "hints": [
+      "Validate all required fields before accepting a record.",
+      "bool is a subclass of int; an exact type check excludes it."
+    ],
+    "solution": "def solve(records):\n    return [r for r in records if isinstance(r.get(\"name\"),str) and r[\"name\"].strip() and type(r.get(\"score\")) is int and r[\"score\"]>=0]\n"
+  }
+]

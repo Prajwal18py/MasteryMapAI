@@ -1,0 +1,427 @@
+[
+  {
+    "id": "advanced-closures",
+    "concept": "closures",
+    "kind": "code-output",
+    "prompt": "What is printed?\ndef outer(x):\n    def inner(y): return x+y\n    return inner\nprint(outer(4)(6))",
+    "options": [
+      "10",
+      "4",
+      "6",
+      "None"
+    ],
+    "correct": 0,
+    "explanation": "The returned function retains access to x=4 and adds y=6.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "The returned function retains access to x=4 and adds y=6."
+  },
+  {
+    "id": "advanced-decorators",
+    "concept": "decorators",
+    "kind": "debugging",
+    "prompt": "A wrapper calls the original function but has no return statement. What happens to its result?",
+    "options": [
+      "The result is forwarded automatically",
+      "The wrapper returns None",
+      "The decorator never runs",
+      "Python returns the arguments"
+    ],
+    "correct": 1,
+    "explanation": "Calling a function is different from returning its result.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Calling a function is different from returning its result."
+  },
+  {
+    "id": "advanced-generators",
+    "concept": "generators",
+    "kind": "code-output",
+    "prompt": "What is list(x*x for x in range(3))?",
+    "options": [
+      "[1, 4, 9]",
+      "[0, 2, 4]",
+      "[0, 1, 4]",
+      "[0, 1, 2]"
+    ],
+    "correct": 2,
+    "explanation": "range(3) produces 0, 1 and 2, whose squares are 0, 1 and 4.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "range(3) produces 0, 1 and 2, whose squares are 0, 1 and 4."
+  },
+  {
+    "id": "advanced-iterators",
+    "concept": "iterators",
+    "kind": "debugging",
+    "prompt": "Two loops reuse the same exhausted iterator. Why does the second produce no values?",
+    "options": [
+      "Every iterable can be used only once",
+      "The first loop deleted the source list",
+      "Iterators always cache and replay values",
+      "The iterator has already been consumed"
+    ],
+    "correct": 3,
+    "explanation": "An iterator carries state. Obtain a new iterator from a reusable iterable to restart.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "An iterator carries state. Obtain a new iterator from a reusable iterable to restart."
+  },
+  {
+    "id": "advanced-classes",
+    "concept": "classes",
+    "kind": "debugging",
+    "prompt": "Two instances unexpectedly share changes to a list declared in the class body. What is the likely fix?",
+    "options": [
+      "Create a separate list in each instance's __init__",
+      "Make the list global",
+      "Rename self to cls",
+      "Remove the constructor"
+    ],
+    "correct": 0,
+    "explanation": "A mutable class attribute is shared; an instance attribute can hold independent state.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "A mutable class attribute is shared; an instance attribute can hold independent state."
+  },
+  {
+    "id": "advanced-construction",
+    "concept": "construction",
+    "kind": "debugging",
+    "prompt": "An __init__ method returns the integer 5. What is wrong?",
+    "options": [
+      "Every constructor must return 5",
+      "__init__ must return None",
+      "__init__ can only return strings",
+      "__init__ cannot take arguments"
+    ],
+    "correct": 1,
+    "explanation": "Python requires __init__ to return None because creation and initialization are separate.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Python requires __init__ to return None because creation and initialization are separate."
+  },
+  {
+    "id": "advanced-inheritance",
+    "concept": "inheritance",
+    "kind": "scenario",
+    "prompt": "A subclass overrides a method but should still use the parent's implementation as part of its work. What helps?",
+    "options": [
+      "global",
+      "del",
+      "super()",
+      "staticmethod alone"
+    ],
+    "correct": 2,
+    "explanation": "super delegates to the next implementation in the method resolution order.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "super delegates to the next implementation in the method resolution order."
+  },
+  {
+    "id": "advanced-polymorphism",
+    "concept": "polymorphism",
+    "kind": "scenario",
+    "prompt": "Several unrelated objects implement draw(), and a function calls obj.draw() on each. What principle is illustrated?",
+    "options": [
+      "All objects must share the same parent",
+      "Only private access",
+      "File serialization",
+      "Polymorphism through a shared interface"
+    ],
+    "correct": 3,
+    "explanation": "Different objects can respond to the same operation with their own implementations.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Different objects can respond to the same operation with their own implementations."
+  },
+  {
+    "id": "advanced-method-types",
+    "concept": "method-types",
+    "kind": "debugging",
+    "prompt": "A static method refers to self without receiving it as an argument. Why can it fail?",
+    "options": [
+      "Static methods do not receive an instance automatically",
+      "Static methods always receive cls",
+      "self is a built-in global",
+      "Static methods cannot return values"
+    ],
+    "correct": 0,
+    "explanation": "Unlike bound instance methods, static methods receive only explicitly passed arguments.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Unlike bound instance methods, static methods receive only explicitly passed arguments."
+  },
+  {
+    "id": "advanced-comprehensions",
+    "concept": "comprehensions",
+    "kind": "code-output",
+    "prompt": "What is [x+y for x in [1,2] for y in [10,20]]?",
+    "options": [
+      "[11, 22]",
+      "[11, 21, 12, 22]",
+      "[11, 12, 21, 22]",
+      "[30, 3]"
+    ],
+    "correct": 1,
+    "explanation": "The outer clause selects x; the inner clause runs fully for that x.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "The outer clause selects x; the inner clause runs fully for that x."
+  },
+  {
+    "id": "advanced-lambda",
+    "concept": "lambda",
+    "kind": "debugging",
+    "prompt": "Why do functions in [lambda: i for i in range(3)] all return 2 when called later?",
+    "options": [
+      "Each lambda always returns its source line",
+      "range starts at 2",
+      "They look up the same captured variable when called",
+      "Lambdas cannot capture variables"
+    ],
+    "correct": 2,
+    "explanation": "The closure refers to the shared binding; a default parameter can capture each current value.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "The closure refers to the shared binding; a default parameter can capture each current value."
+  },
+  {
+    "id": "advanced-map-filter-reduce",
+    "concept": "map-filter-reduce",
+    "kind": "code-output",
+    "prompt": "What is list(map(lambda x: x+1, [2,4]))?",
+    "options": [
+      "[2, 4]",
+      "[1, 1]",
+      "[2, 4, 1]",
+      "[3, 5]"
+    ],
+    "correct": 3,
+    "explanation": "map transforms each item with the supplied function.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "map transforms each item with the supplied function."
+  },
+  {
+    "id": "advanced-exceptions",
+    "concept": "exceptions",
+    "kind": "code-output",
+    "prompt": "A try block raises a handled ValueError. Which part still runs on leaving the construct?",
+    "options": [
+      "finally",
+      "else always",
+      "Only the first import",
+      "No further code can run"
+    ],
+    "correct": 0,
+    "explanation": "finally performs cleanup whether the try completed normally or raised an exception.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "finally performs cleanup whether the try completed normally or raised an exception."
+  },
+  {
+    "id": "advanced-threads",
+    "concept": "threads",
+    "kind": "debugging",
+    "prompt": "Why can checking then updating shared data race even if each operation seems simple?",
+    "options": [
+      "Variable names are randomly changed",
+      "Another thread can interleave between the operations",
+      "Threads never share data",
+      "A print call is a lock"
+    ],
+    "correct": 1,
+    "explanation": "Protect the full invariant or critical section rather than assuming multi-step atomicity.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Protect the full invariant or critical section rather than assuming multi-step atomicity."
+  },
+  {
+    "id": "advanced-asyncio",
+    "concept": "asyncio",
+    "kind": "debugging",
+    "prompt": "A coroutine uses time.sleep during a network workflow. What is the problem?",
+    "options": [
+      "It automatically creates a worker",
+      "It always improves throughput",
+      "It blocks the event-loop thread",
+      "It is equivalent to await asyncio.sleep"
+    ],
+    "correct": 2,
+    "explanation": "Use an awaitable sleep for cooperative scheduling.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Use an awaitable sleep for cooperative scheduling."
+  },
+  {
+    "id": "advanced-processes",
+    "concept": "processes",
+    "kind": "scenario",
+    "prompt": "A process worker changes an ordinary list from its parent. What should the parent assume?",
+    "options": [
+      "All process memory is shared",
+      "The parent list must become empty",
+      "The list becomes a database",
+      "That change is not automatically shared back"
+    ],
+    "correct": 3,
+    "explanation": "Processes have separate memory; use results or explicit inter-process communication.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Processes have separate memory; use results or explicit inter-process communication."
+  },
+  {
+    "id": "advanced-assertions",
+    "concept": "assertions",
+    "kind": "debugging",
+    "prompt": "Validation disappears when a program is run with -O. Which construct was likely misused?",
+    "options": [
+      "assert",
+      "if with raise",
+      "try with except",
+      "A property getter"
+    ],
+    "correct": 0,
+    "explanation": "Optimization can remove assertions; external input needs explicit validation.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Optimization can remove assertions; external input needs explicit validation."
+  },
+  {
+    "id": "advanced-numpy",
+    "concept": "numpy",
+    "kind": "code-output",
+    "prompt": "What is np.array([1,2]) + np.array([3,4])?",
+    "options": [
+      "array([1,2,3,4])",
+      "array([4, 6])",
+      "array([3,8])",
+      "10"
+    ],
+    "correct": 1,
+    "explanation": "Array addition combines corresponding elements rather than concatenating arrays.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Array addition combines corresponding elements rather than concatenating arrays."
+  },
+  {
+    "id": "advanced-pandas",
+    "concept": "pandas",
+    "kind": "scenario",
+    "prompt": "A DataFrame index is [10,20,30]. Which selects the row labeled 20?",
+    "options": [
+      "df.iloc[20]",
+      "df.columns[20]",
+      "df.loc[20]",
+      "df.loc[1]"
+    ],
+    "correct": 2,
+    "explanation": "loc is label-based; iloc is position-based.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "loc is label-based; iloc is position-based."
+  },
+  {
+    "id": "advanced-aggregation",
+    "concept": "aggregation",
+    "kind": "debugging",
+    "prompt": "A merge unexpectedly quadruples rows for one key. What should you inspect?",
+    "options": [
+      "The text editor's font",
+      "Whether the table names rhyme",
+      "The chart legend",
+      "Duplicate join keys on both sides"
+    ],
+    "correct": 3,
+    "explanation": "Repeated keys produce all matching row combinations in a many-to-many join.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Repeated keys produce all matching row combinations in a many-to-many join."
+  },
+  {
+    "id": "advanced-regex",
+    "concept": "regex",
+    "kind": "code-output",
+    "prompt": "What does re.fullmatch(r'[0-9]+', '12x') return?",
+    "options": [
+      "None",
+      "A match for 12",
+      "True",
+      "The integer 12"
+    ],
+    "correct": 0,
+    "explanation": "fullmatch requires every character to match; x violates the digit pattern.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "fullmatch requires every character to match; x violates the digit pattern."
+  },
+  {
+    "id": "advanced-json",
+    "concept": "json",
+    "kind": "debugging",
+    "prompt": "A JSON response contains null. Which Python value should your code handle after decoding?",
+    "options": [
+      "'null'",
+      "None",
+      "0",
+      "An empty tuple"
+    ],
+    "correct": 1,
+    "explanation": "The JSON decoder maps null to None.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "The JSON decoder maps null to None."
+  },
+  {
+    "id": "advanced-csv",
+    "concept": "csv",
+    "kind": "debugging",
+    "prompt": "Splitting a CSV row on commas produces too many columns. What is the likely cause?",
+    "options": [
+      "CSV forbids quoting",
+      "The row must be encrypted",
+      "A quoted field contains a comma",
+      "Every comma represents a new record"
+    ],
+    "correct": 2,
+    "explanation": "CSV parsing must respect quoting rules.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "CSV parsing must respect quoting rules."
+  },
+  {
+    "id": "advanced-sqlite",
+    "concept": "sqlite",
+    "kind": "scenario",
+    "prompt": "A transaction updates a balance and then fails before recording the transfer. What preserves consistency?",
+    "options": [
+      "Commit the first change regardless",
+      "Ignore the exception",
+      "Delete the user's account",
+      "Roll back the transaction"
+    ],
+    "correct": 3,
+    "explanation": "Related writes should be atomic; rollback removes partial changes.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "Related writes should be atomic; rollback removes partial changes."
+  },
+  {
+    "id": "advanced-rest",
+    "concept": "rest",
+    "kind": "scenario",
+    "prompt": "A client retries a creation request after a timeout. What risk should the API design address?",
+    "options": [
+      "Duplicate creation if the original request succeeded",
+      "GET becomes illegal",
+      "Every timeout proves no work happened",
+      "JSON changes its syntax"
+    ],
+    "correct": 0,
+    "explanation": "A timeout does not prove the server rejected the request; an idempotency mechanism can prevent duplicates.",
+    "hint": "Trace the operation step by step and distinguish its inputs, state and return value.",
+    "difficulty": 3,
+    "misconception": "A timeout does not prove the server rejected the request; an idempotency mechanism can prevent duplicates."
+  }
+]

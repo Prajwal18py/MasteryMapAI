@@ -1,0 +1,408 @@
+{
+  "concepts": [
+    {
+      "id": "functions",
+      "name": "Functions",
+      "initial": 92,
+      "x": 110,
+      "y": 155,
+      "prereqs": [],
+      "summary": "Functions are reusable blocks defined with def. Parameters receive arguments; return passes a value to the caller."
+    },
+    {
+      "id": "classes",
+      "name": "Classes & objects",
+      "initial": 94,
+      "x": 330,
+      "y": 70,
+      "prereqs": [
+        "functions"
+      ],
+      "summary": "A class defines a type. An object is an instance. Instance methods receive self; __init__ initializes instance state."
+    },
+    {
+      "id": "hof",
+      "name": "Higher-order functions",
+      "initial": 63,
+      "x": 330,
+      "y": 240,
+      "prereqs": [
+        "functions"
+      ],
+      "summary": "A higher-order function accepts a function as an argument or returns a function. Pass the function itself without calling it."
+    },
+    {
+      "id": "inheritance",
+      "name": "Inheritance",
+      "initial": 87,
+      "x": 565,
+      "y": 45,
+      "prereqs": [
+        "classes"
+      ],
+      "summary": "A subclass inherits behavior from a parent. super() delegates to the next class in the method resolution order."
+    },
+    {
+      "id": "polymorphism",
+      "name": "Polymorphism",
+      "initial": 73,
+      "x": 565,
+      "y": 140,
+      "prereqs": [
+        "classes"
+      ],
+      "summary": "Polymorphism lets the same operation call different implementations. Overriding replaces inherited method behavior."
+    },
+    {
+      "id": "closures",
+      "name": "Closures",
+      "initial": 61,
+      "x": 565,
+      "y": 260,
+      "prereqs": [
+        "hof"
+      ],
+      "summary": "A closure retains access to variables in an enclosing function scope after that outer function returns."
+    },
+    {
+      "id": "decorators",
+      "name": "Decorators",
+      "initial": 52,
+      "x": 790,
+      "y": 220,
+      "prereqs": [
+        "hof",
+        "closures"
+      ],
+      "summary": "A decorator takes a function and returns a replacement callable. @decorate is equivalent to function = decorate(function). A wrapper can forward *args and **kwargs and return the wrapped result."
+    },
+    {
+      "id": "generators",
+      "name": "Generators",
+      "initial": 89,
+      "x": 330,
+      "y": 360,
+      "prereqs": [
+        "functions"
+      ],
+      "summary": "yield pauses a generator and produces a value. Iteration resumes execution at the following statement without storing every result."
+    },
+    {
+      "id": "exceptions",
+      "name": "Exceptions",
+      "initial": 74,
+      "x": 565,
+      "y": 380,
+      "prereqs": [
+        "functions"
+      ],
+      "summary": "try contains risky operations; except handles matching exceptions. finally runs on leaving the construct; else runs when the try block completes without an exception."
+    }
+  ],
+  "questions": [
+    {
+      "id": "py-1",
+      "concept": "functions",
+      "prompt": "What does a Python function return when no return statement runs?",
+      "options": [
+        "0",
+        "None",
+        "False",
+        "An empty string"
+      ],
+      "correct": 1,
+      "explanation": "Python implicitly returns None. Printing a value does not return it.",
+      "hint": "Distinguish displaying a value from returning it.",
+      "difficulty": 1,
+      "misconception": "Confusing print with return"
+    },
+    {
+      "id": "py-2",
+      "concept": "functions",
+      "prompt": "What is printed?\ndef add(a, b=2):\n    return a+b\nprint(add(3))",
+      "options": [
+        "2",
+        "3",
+        "5",
+        "TypeError"
+      ],
+      "correct": 2,
+      "explanation": "The default value of b is 2, so 3+2 is 5.",
+      "hint": "A default parameter is used when its argument is omitted.",
+      "difficulty": 1,
+      "misconception": "Ignoring default arguments"
+    },
+    {
+      "id": "py-3",
+      "concept": "classes",
+      "prompt": "Which parameter receives the instance in an instance method?",
+      "options": [
+        "cls",
+        "self",
+        "args",
+        "No parameter"
+      ],
+      "correct": 1,
+      "explanation": "Instance methods receive the instance as their first argument, conventionally named self.",
+      "hint": "Think about the object on which the method is called.",
+      "difficulty": 1,
+      "misconception": "Confusing instance and class binding"
+    },
+    {
+      "id": "py-4",
+      "concept": "classes",
+      "prompt": "Does @staticmethod automatically receive self?",
+      "options": [
+        "Yes, always",
+        "Only when called on an object",
+        "No",
+        "Only inside __init__"
+      ],
+      "correct": 2,
+      "explanation": "A static method receives neither self nor cls automatically.",
+      "hint": "A static method is not bound to an instance.",
+      "difficulty": 2,
+      "misconception": "Believing static methods receive self"
+    },
+    {
+      "id": "py-5",
+      "concept": "hof",
+      "prompt": "Which expression passes a function to another function?",
+      "options": [
+        "apply(square(4))",
+        "apply(square)",
+        "apply(\"square\")",
+        "square = 4"
+      ],
+      "correct": 1,
+      "explanation": "apply(square) passes the function object; square(4) calls it first.",
+      "hint": "Parentheses execute a function.",
+      "difficulty": 2,
+      "misconception": "Confusing a function reference with a call"
+    },
+    {
+      "id": "py-6",
+      "concept": "hof",
+      "prompt": "Which operation makes a function higher-order?",
+      "options": [
+        "Using a loop",
+        "Returning an integer",
+        "Accepting another function",
+        "Printing a value"
+      ],
+      "correct": 2,
+      "explanation": "A higher-order function accepts a function or returns a function.",
+      "hint": "Consider whether functions are being treated as values.",
+      "difficulty": 1,
+      "misconception": "Misidentifying higher-order functions"
+    },
+    {
+      "id": "py-7",
+      "concept": "inheritance",
+      "prompt": "What is super() commonly used for in a subclass?",
+      "options": [
+        "Deleting the parent",
+        "Calling an inherited implementation",
+        "Creating a global variable",
+        "Preventing overriding"
+      ],
+      "correct": 1,
+      "explanation": "super() delegates through the method resolution order, commonly to a parent implementation.",
+      "hint": "It helps reuse inherited behavior.",
+      "difficulty": 2,
+      "misconception": "Misunderstanding super"
+    },
+    {
+      "id": "py-8",
+      "concept": "inheritance",
+      "prompt": "Which declaration inherits from Parent?",
+      "options": [
+        "class Child(Parent):",
+        "class Child extends Parent:",
+        "class Parent(Child):",
+        "inherit Child from Parent"
+      ],
+      "correct": 0,
+      "explanation": "Python lists base classes in parentheses after the class name.",
+      "hint": "Recall the syntax of a class header.",
+      "difficulty": 1,
+      "misconception": "Incorrect inheritance syntax"
+    },
+    {
+      "id": "py-9",
+      "concept": "polymorphism",
+      "prompt": "What is method overriding?",
+      "options": [
+        "Changing a variable",
+        "Defining a subclass implementation of an inherited method",
+        "Importing a module",
+        "Calling a function twice"
+      ],
+      "correct": 1,
+      "explanation": "A subclass can provide its own implementation of an inherited method.",
+      "hint": "The same method name can have different behavior by type.",
+      "difficulty": 2,
+      "misconception": "Confusing overriding and overloading"
+    },
+    {
+      "id": "py-10",
+      "concept": "polymorphism",
+      "prompt": "If Dog and Cat each implement speak(), what allows speak() to behave differently?",
+      "options": [
+        "Encapsulation only",
+        "Polymorphism",
+        "Recursion",
+        "Iteration"
+      ],
+      "correct": 1,
+      "explanation": "The method call dispatches to the implementation of the actual object.",
+      "hint": "One interface, multiple implementations.",
+      "difficulty": 1,
+      "misconception": "Misunderstanding dynamic dispatch"
+    },
+    {
+      "id": "py-11",
+      "concept": "closures",
+      "prompt": "What does a closure retain?",
+      "options": [
+        "Only global variables",
+        "Access to enclosing function variables",
+        "A copy of every module",
+        "Only its own parameters"
+      ],
+      "correct": 1,
+      "explanation": "A closure retains access to variables from its enclosing lexical scope.",
+      "hint": "The outer function can finish while the inner function keeps access.",
+      "difficulty": 2,
+      "misconception": "Confusing enclosing and global scope"
+    },
+    {
+      "id": "py-12",
+      "concept": "closures",
+      "prompt": "What is printed?\ndef outer(x):\n    def inner():\n        return x\n    return inner\nf = outer(7)\nprint(f())",
+      "options": [
+        "None",
+        "7",
+        "inner",
+        "NameError"
+      ],
+      "correct": 1,
+      "explanation": "inner closes over x, retaining access to 7 after outer returns.",
+      "hint": "f holds the returned inner function.",
+      "difficulty": 3,
+      "misconception": "Believing enclosing variables disappear"
+    },
+    {
+      "id": "py-13",
+      "concept": "decorators",
+      "prompt": "@log above def work() is equivalent to which assignment?",
+      "options": [
+        "work = log(work)",
+        "log = work(log)",
+        "work = log()",
+        "work = work(log)"
+      ],
+      "correct": 0,
+      "explanation": "A decorator is called with the original function; its return value replaces that function.",
+      "hint": "The original callable is the decorator’s argument.",
+      "difficulty": 2,
+      "misconception": "Confusing decorator application"
+    },
+    {
+      "id": "py-14",
+      "concept": "decorators",
+      "prompt": "Why should a wrapper return func(*args, **kwargs)?",
+      "options": [
+        "To print the result",
+        "To preserve the wrapped function’s return value",
+        "To create a class",
+        "To stop all exceptions"
+      ],
+      "correct": 1,
+      "explanation": "Without return, the wrapper discards the result and implicitly returns None.",
+      "hint": "What would the caller receive without return?",
+      "difficulty": 2,
+      "misconception": "Discarding a wrapped return value"
+    },
+    {
+      "id": "py-15",
+      "concept": "decorators",
+      "prompt": "With @first above @second, which transformation is applied first?",
+      "options": [
+        "first",
+        "second",
+        "Both simultaneously",
+        "Neither"
+      ],
+      "correct": 1,
+      "explanation": "The transformation is first(second(function)); second is applied first.",
+      "hint": "Read stacked decorator application from bottom to top.",
+      "difficulty": 3,
+      "misconception": "Confusing decorator application order"
+    },
+    {
+      "id": "py-16",
+      "concept": "generators",
+      "prompt": "Which keyword pauses a generator and produces a value?",
+      "options": [
+        "return",
+        "break",
+        "yield",
+        "pass"
+      ],
+      "correct": 2,
+      "explanation": "yield suspends execution and saves state until iteration resumes.",
+      "hint": "It allows values to be produced lazily.",
+      "difficulty": 1,
+      "misconception": "Confusing yield with return"
+    },
+    {
+      "id": "py-17",
+      "concept": "generators",
+      "prompt": "After exhausting a generator, what does next(g) normally raise?",
+      "options": [
+        "ValueError",
+        "StopIteration",
+        "IndexError",
+        "Nothing"
+      ],
+      "correct": 1,
+      "explanation": "StopIteration signals that the iterator has no further values.",
+      "hint": "The iterator protocol has a specific completion signal.",
+      "difficulty": 2,
+      "misconception": "Misunderstanding iterator exhaustion"
+    },
+    {
+      "id": "py-18",
+      "concept": "exceptions",
+      "prompt": "When does a finally block run?",
+      "options": [
+        "Only on failure",
+        "Only on success",
+        "On leaving try/except, with or without an exception",
+        "Never with return"
+      ],
+      "correct": 2,
+      "explanation": "finally is for cleanup and runs on normal completion, exceptions, and return (barring process termination).",
+      "hint": "Cleanup must happen in either case.",
+      "difficulty": 2,
+      "misconception": "Believing finally only runs on errors"
+    },
+    {
+      "id": "py-19",
+      "concept": "exceptions",
+      "prompt": "Which block runs if try completes without an exception?",
+      "options": [
+        "except",
+        "else",
+        "raise",
+        "catch"
+      ],
+      "correct": 1,
+      "explanation": "The optional else block runs only when try completes without an exception.",
+      "hint": "There is a separate branch for success.",
+      "difficulty": 1,
+      "misconception": "Confusing else and finally"
+    }
+  ]
+}

@@ -1,0 +1,278 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "trainingSource": "Synthetic simulator \u2014 not real student evidence",
+  "target": "Probability of a correct next MCQ response, not an exam score",
+  "created_at": "2026-09-26T17:39:26.337019+00:00",
+  "features": [
+    "concept_index",
+    "difficulty",
+    "log_prior_count",
+    "prior_accuracy",
+    "last_five_accuracy",
+    "prior_hint_rate",
+    "bkt_prior",
+    "log_days_since_concept",
+    "prerequisite_mastery"
+  ],
+  "concepts": [
+    "functions",
+    "classes",
+    "hof",
+    "inheritance",
+    "polymorphism",
+    "closures",
+    "decorators",
+    "generators",
+    "exceptions"
+  ],
+  "seed": 42,
+  "selectedML": "logistic",
+  "bestEpoch": 6,
+  "datasetSha256": "c3e184311cf2ddde6f677f91c99a7a06e2185bc535ed1d425e4742a14fbaec2b",
+  "split": {
+    "method": "Disjoint students 70/15/15; history strictly precedes each target; validation selects ML and GRU epoch",
+    "students": {
+      "train": 112,
+      "validation": 24,
+      "test": 24
+    },
+    "responses": {
+      "train": 6160,
+      "validation": 1320,
+      "test": 1320
+    }
+  },
+  "metrics": {
+    "logistic": {
+      "auc": 0.6359,
+      "brier": 0.2349,
+      "logLoss": 0.6623,
+      "accuracy": 0.603,
+      "n": 1320,
+      "reliability": [
+        {
+          "count": 539,
+          "predicted": 0.316,
+          "observed": 0.351
+        },
+        {
+          "count": 593,
+          "predicted": 0.495,
+          "observed": 0.508
+        },
+        {
+          "count": 188,
+          "predicted": 0.655,
+          "observed": 0.66
+        }
+      ]
+    },
+    "forest": {
+      "auc": 0.6259,
+      "brier": 0.2372,
+      "logLoss": 0.6669,
+      "accuracy": 0.5939,
+      "n": 1320,
+      "reliability": [
+        {
+          "count": 590,
+          "predicted": 0.335,
+          "observed": 0.371
+        },
+        {
+          "count": 556,
+          "predicted": 0.495,
+          "observed": 0.509
+        },
+        {
+          "count": 170,
+          "predicted": 0.673,
+          "observed": 0.635
+        },
+        {
+          "count": 4,
+          "predicted": 0.814,
+          "observed": 1.0
+        }
+      ]
+    },
+    "gru": {
+      "auc": 0.6268,
+      "brier": 0.2366,
+      "logLoss": 0.6655,
+      "accuracy": 0.5977,
+      "n": 1320,
+      "reliability": [
+        {
+          "count": 18,
+          "predicted": 0.187,
+          "observed": 0.056
+        },
+        {
+          "count": 466,
+          "predicted": 0.316,
+          "observed": 0.373
+        },
+        {
+          "count": 645,
+          "predicted": 0.495,
+          "observed": 0.484
+        },
+        {
+          "count": 191,
+          "predicted": 0.661,
+          "observed": 0.665
+        }
+      ]
+    },
+    "bkt": {
+      "auc": 0.5594,
+      "brier": 0.2617,
+      "logLoss": 0.7228,
+      "accuracy": 0.5485,
+      "n": 1320,
+      "reliability": [
+        {
+          "count": 442,
+          "predicted": 0.337,
+          "observed": 0.416
+        },
+        {
+          "count": 477,
+          "predicted": 0.482,
+          "observed": 0.459
+        },
+        {
+          "count": 254,
+          "predicted": 0.69,
+          "observed": 0.469
+        },
+        {
+          "count": 147,
+          "predicted": 0.841,
+          "observed": 0.626
+        }
+      ]
+    }
+  },
+  "lateHistoryMetrics": {
+    "logistic": {
+      "auc": 0.6527,
+      "brier": 0.2322,
+      "logLoss": 0.6565,
+      "accuracy": 0.6056,
+      "n": 1080,
+      "reliability": [
+        {
+          "count": 399,
+          "predicted": 0.317,
+          "observed": 0.331
+        },
+        {
+          "count": 503,
+          "predicted": 0.494,
+          "observed": 0.527
+        },
+        {
+          "count": 178,
+          "predicted": 0.657,
+          "observed": 0.669
+        }
+      ]
+    },
+    "forest": {
+      "auc": 0.64,
+      "brier": 0.2354,
+      "logLoss": 0.6629,
+      "accuracy": 0.5954,
+      "n": 1080,
+      "reliability": [
+        {
+          "count": 447,
+          "predicted": 0.337,
+          "observed": 0.362
+        },
+        {
+          "count": 467,
+          "predicted": 0.494,
+          "observed": 0.527
+        },
+        {
+          "count": 162,
+          "predicted": 0.674,
+          "observed": 0.642
+        },
+        {
+          "count": 4,
+          "predicted": 0.814,
+          "observed": 1.0
+        }
+      ]
+    },
+    "gru": {
+      "auc": 0.638,
+      "brier": 0.2351,
+      "logLoss": 0.6624,
+      "accuracy": 0.6019,
+      "n": 1080,
+      "reliability": [
+        {
+          "count": 9,
+          "predicted": 0.193,
+          "observed": 0.111
+        },
+        {
+          "count": 353,
+          "predicted": 0.315,
+          "observed": 0.363
+        },
+        {
+          "count": 534,
+          "predicted": 0.497,
+          "observed": 0.494
+        },
+        {
+          "count": 184,
+          "predicted": 0.662,
+          "observed": 0.668
+        }
+      ]
+    },
+    "bkt": {
+      "auc": 0.574,
+      "brier": 0.2616,
+      "logLoss": 0.7234,
+      "accuracy": 0.55,
+      "n": 1080,
+      "reliability": [
+        {
+          "count": 393,
+          "predicted": 0.336,
+          "observed": 0.41
+        },
+        {
+          "count": 320,
+          "predicted": 0.487,
+          "observed": 0.487
+        },
+        {
+          "count": 222,
+          "predicted": 0.691,
+          "observed": 0.486
+        },
+        {
+          "count": 145,
+          "predicted": 0.841,
+          "observed": 0.628
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Synthetic scores are not evidence of real-world accuracy.",
+    "Repeated questions can inflate performance; collect question IDs and evaluate unseen items before claims.",
+    "No calibrated exam score, causal intervention effect, or clinical inference.",
+    "Late-history evaluation is within held-out students, not a calendar-time deployment simulation."
+  ]
+}

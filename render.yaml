@@ -1,0 +1,32 @@
+services:
+  - type: web
+    name: masterymap-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: bash build-cloud.sh
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: DATABASE_URL
+        sync: false
+      - key: APP_ORIGINS
+        sync: false
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: CLOUD_PROFILE
+        value: full
+      - key: OMP_NUM_THREADS
+        value: "1"
+      - key: TOKENIZERS_PARALLELISM
+        value: "false"
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GROQ_MODEL
+        value: "openai/gpt-oss-120b"
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: MISTRAL_MODEL
+        value: "mistral-small-latest"

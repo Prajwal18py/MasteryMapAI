@@ -1,0 +1,25 @@
+.venv/
+.cache/
+**/node_modules/
+**/.next/
+**/__pycache__/
+**/*.pyc
+**/*.tsbuildinfo
+backend/data/
+**/.env
+**/.env.local
+
+backend/models/embeddings/
+backend/models/local/
+*.csv
+!sample-materials/*.csv
+
+# Secrets and local records (never upload to GitHub)
+**/.env.*
+!**/.env.example
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.log

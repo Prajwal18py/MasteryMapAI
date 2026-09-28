@@ -1,0 +1,1844 @@
+{
+  "version": 1,
+  "modules": [
+    {
+      "key": "oop",
+      "name": "Python I — Object-Oriented Programming",
+      "concepts": [
+        {
+          "id": "functions",
+          "name": "Functions",
+          "summary": "Functions are reusable blocks defined with def. Parameters receive arguments; return passes a value to the caller.",
+          "prereqs": []
+        },
+        {
+          "id": "classes",
+          "name": "Classes & objects",
+          "summary": "A class defines a type. An object is an instance. Instance methods receive self; __init__ initializes instance state.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "inheritance",
+          "name": "Inheritance",
+          "summary": "A subclass inherits behavior from a parent. super() delegates to the next class in the method resolution order.",
+          "prereqs": [
+            "classes"
+          ]
+        },
+        {
+          "id": "polymorphism",
+          "name": "Polymorphism",
+          "summary": "Polymorphism lets the same operation call different implementations. Overriding replaces inherited method behavior.",
+          "prereqs": [
+            "classes"
+          ]
+        },
+        {
+          "id": "construction",
+          "name": "Constructors and destructors",
+          "summary": "__new__ creates an instance; __init__ initializes it and must return None. __del__ is a finalizer whose timing should not be relied on. Use context managers for predictable resource cleanup.",
+          "prereqs": [
+            "classes"
+          ]
+        },
+        {
+          "id": "encapsulation",
+          "name": "Encapsulation and properties",
+          "summary": "Encapsulation groups state with operations. A leading underscore signals non-public use by convention. Double leading underscores trigger name mangling, not security. @property provides managed attribute access and validation.",
+          "prereqs": [
+            "classes"
+          ]
+        },
+        {
+          "id": "dunder",
+          "name": "Special and magic methods",
+          "summary": "Special methods connect objects to Python protocols: __str__ returns readable text, __repr__ a debugging representation, __len__ an integer length. Implement the protocol instead of manually calling special methods in normal code.",
+          "prereqs": [
+            "classes"
+          ]
+        },
+        {
+          "id": "operators",
+          "name": "Operator overloading",
+          "summary": "__add__ implements addition for a custom class; __radd__ supports reflected addition. For unsupported operand types return NotImplemented so Python can try other dispatch paths. Operator behavior should remain meaningful.",
+          "prereqs": [
+            "dunder"
+          ]
+        },
+        {
+          "id": "method-types",
+          "name": "Instance, class and static methods",
+          "summary": "Instance methods receive self; class methods decorated with @classmethod receive cls. Static methods decorated with @staticmethod receive neither automatically. Class methods are useful for alternative constructors that respect subclasses.",
+          "prereqs": [
+            "classes"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "py-1",
+          "concept": "functions",
+          "prompt": "What does a Python function return when no return statement runs?",
+          "options": [
+            "0",
+            "None",
+            "False",
+            "An empty string"
+          ],
+          "correct": 1,
+          "explanation": "Python implicitly returns None. Printing a value does not return it.",
+          "hint": "Distinguish displaying a value from returning it.",
+          "difficulty": 1,
+          "misconception": "Confusing print with return"
+        },
+        {
+          "id": "py-2",
+          "concept": "functions",
+          "prompt": "What is printed?\ndef add(a, b=2):\n    return a+b\nprint(add(3))",
+          "options": [
+            "2",
+            "3",
+            "5",
+            "TypeError"
+          ],
+          "correct": 2,
+          "explanation": "The default value of b is 2, so 3+2 is 5.",
+          "hint": "A default parameter is used when its argument is omitted.",
+          "difficulty": 1,
+          "misconception": "Ignoring default arguments"
+        },
+        {
+          "id": "py-3",
+          "concept": "classes",
+          "prompt": "Which parameter receives the instance in an instance method?",
+          "options": [
+            "cls",
+            "self",
+            "args",
+            "No parameter"
+          ],
+          "correct": 1,
+          "explanation": "Instance methods receive the instance as their first argument, conventionally named self.",
+          "hint": "Think about the object on which the method is called.",
+          "difficulty": 1,
+          "misconception": "Confusing instance and class binding"
+        },
+        {
+          "id": "py-4",
+          "concept": "classes",
+          "prompt": "Does @staticmethod automatically receive self?",
+          "options": [
+            "Yes, always",
+            "Only when called on an object",
+            "No",
+            "Only inside __init__"
+          ],
+          "correct": 2,
+          "explanation": "A static method receives neither self nor cls automatically.",
+          "hint": "A static method is not bound to an instance.",
+          "difficulty": 2,
+          "misconception": "Believing static methods receive self"
+        },
+        {
+          "id": "py-7",
+          "concept": "inheritance",
+          "prompt": "What is super() commonly used for in a subclass?",
+          "options": [
+            "Deleting the parent",
+            "Calling an inherited implementation",
+            "Creating a global variable",
+            "Preventing overriding"
+          ],
+          "correct": 1,
+          "explanation": "super() delegates through the method resolution order, commonly to a parent implementation.",
+          "hint": "It helps reuse inherited behavior.",
+          "difficulty": 2,
+          "misconception": "Misunderstanding super"
+        },
+        {
+          "id": "py-8",
+          "concept": "inheritance",
+          "prompt": "Which declaration inherits from Parent?",
+          "options": [
+            "class Child(Parent):",
+            "class Child extends Parent:",
+            "class Parent(Child):",
+            "inherit Child from Parent"
+          ],
+          "correct": 0,
+          "explanation": "Python lists base classes in parentheses after the class name.",
+          "hint": "Recall the syntax of a class header.",
+          "difficulty": 1,
+          "misconception": "Incorrect inheritance syntax"
+        },
+        {
+          "id": "py-9",
+          "concept": "polymorphism",
+          "prompt": "What is method overriding?",
+          "options": [
+            "Changing a variable",
+            "Defining a subclass implementation of an inherited method",
+            "Importing a module",
+            "Calling a function twice"
+          ],
+          "correct": 1,
+          "explanation": "A subclass can provide its own implementation of an inherited method.",
+          "hint": "The same method name can have different behavior by type.",
+          "difficulty": 2,
+          "misconception": "Confusing overriding and overloading"
+        },
+        {
+          "id": "py-10",
+          "concept": "polymorphism",
+          "prompt": "If Dog and Cat each implement speak(), what allows speak() to behave differently?",
+          "options": [
+            "Encapsulation only",
+            "Polymorphism",
+            "Recursion",
+            "Iteration"
+          ],
+          "correct": 1,
+          "explanation": "The method call dispatches to the implementation of the actual object.",
+          "hint": "One interface, multiple implementations.",
+          "difficulty": 1,
+          "misconception": "Misunderstanding dynamic dispatch"
+        },
+        {
+          "id": "syllabus-construction-1",
+          "concept": "construction",
+          "prompt": "Which method initializes the state of a newly created instance?",
+          "options": [
+            "__init__",
+            "__new__",
+            "__str__",
+            "__iter__"
+          ],
+          "correct": 0,
+          "explanation": "__init__ initializes an existing instance; __new__ handles creation.",
+          "hint": "Think about deterministic cleanup.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-encapsulation-1",
+          "concept": "encapsulation",
+          "prompt": "What does a leading underscore in _balance usually communicate?",
+          "options": [
+            "Encrypted storage",
+            "Non-public use by convention",
+            "An inaccessible private field",
+            "A class method"
+          ],
+          "correct": 1,
+          "explanation": "A leading underscore is a convention, not enforced access control.",
+          "hint": "Consider managed attribute access.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-dunder-1",
+          "concept": "dunder",
+          "prompt": "Which method supports len(instance)?",
+          "options": [
+            "__size__",
+            "__count__",
+            "__len__",
+            "__length__"
+          ],
+          "correct": 2,
+          "explanation": "The length protocol uses __len__.",
+          "hint": "Consider the result of str(obj).",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-operators-1",
+          "concept": "operators",
+          "prompt": "What should __add__ normally return for an unsupported operand type?",
+          "options": [
+            "None",
+            "False",
+            "The string 'error'",
+            "NotImplemented"
+          ],
+          "correct": 3,
+          "explanation": "NotImplemented lets Python attempt alternative operator dispatch.",
+          "hint": "Match each operator to its protocol.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-method-types-1",
+          "concept": "method-types",
+          "prompt": "Which decorator makes a method receive the class as its first argument?",
+          "options": [
+            "@classmethod",
+            "@staticmethod",
+            "@property",
+            "@abstractproperty"
+          ],
+          "correct": 0,
+          "explanation": "A class method receives cls even when called through an instance.",
+          "hint": "Which method receives the class automatically?",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-construction-2",
+          "concept": "construction",
+          "prompt": "A file must close reliably when leaving a block, even after an exception. Which approach fits?",
+          "options": [
+            "Rely only on __del__",
+            "Wait for the next garbage collection",
+            "A with statement using a context manager",
+            "Remove the filename variable"
+          ],
+          "correct": 2,
+          "explanation": "Context managers make cleanup part of block exit, independent of finalizer timing.",
+          "hint": "Think about deterministic cleanup.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-encapsulation-2",
+          "concept": "encapsulation",
+          "prompt": "A balance attribute needs validation on assignment while keeping obj.balance syntax. Which feature fits?",
+          "options": [
+            "A static method without arguments",
+            "Name mangling alone",
+            "A __repr__ method",
+            "A property with a setter"
+          ],
+          "correct": 3,
+          "explanation": "A property setter can validate incoming values while preserving attribute syntax.",
+          "hint": "Consider managed attribute access.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-dunder-2",
+          "concept": "dunder",
+          "prompt": "What must __str__ return?",
+          "options": [
+            "A string",
+            "An integer",
+            "Any arbitrary object",
+            "A list of characters"
+          ],
+          "correct": 0,
+          "explanation": "The string conversion protocol requires a str result.",
+          "hint": "Consider the result of str(obj).",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-operators-2",
+          "concept": "operators",
+          "prompt": "A Vector class implements __add__. Which expression uses that protocol?",
+          "options": [
+            "len(v1)",
+            "v1 + v2",
+            "str(v1)",
+            "iter(v1)"
+          ],
+          "correct": 1,
+          "explanation": "The plus operator dispatches to addition special methods.",
+          "hint": "Match each operator to its protocol.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-method-types-2",
+          "concept": "method-types",
+          "prompt": "An alternative constructor should create the class it was called on, including subclasses. Which is best?",
+          "options": [
+            "A static method hard-coding the base class",
+            "An instance method requiring an existing object",
+            "A class method returning cls(...)",
+            "A property returning a string"
+          ],
+          "correct": 2,
+          "explanation": "cls refers to the calling class and supports subclass-aware construction.",
+          "hint": "Which method receives the class automatically?",
+          "difficulty": 2,
+          "misconception": ""
+        }
+      ],
+      "description": "University Python syllabus • 6 contact hours. Includes concise reference notes and a starter practice bank."
+    },
+    {
+      "key": "functional",
+      "name": "Python II — Functional Programming and Iterators",
+      "concepts": [
+        {
+          "id": "functions",
+          "name": "Functions",
+          "summary": "Functions are reusable blocks defined with def. Parameters receive arguments; return passes a value to the caller.",
+          "prereqs": []
+        },
+        {
+          "id": "hof",
+          "name": "Higher-order functions",
+          "summary": "A higher-order function accepts a function as an argument or returns a function. Pass the function itself without calling it.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "closures",
+          "name": "Closures",
+          "summary": "A closure retains access to variables in an enclosing function scope after that outer function returns.",
+          "prereqs": [
+            "hof"
+          ]
+        },
+        {
+          "id": "decorators",
+          "name": "Decorators",
+          "summary": "A decorator takes a function and returns a replacement callable. @decorate is equivalent to function = decorate(function). A wrapper can forward *args and **kwargs and return the wrapped result.",
+          "prereqs": [
+            "hof",
+            "closures"
+          ]
+        },
+        {
+          "id": "generators",
+          "name": "Generators",
+          "summary": "yield pauses a generator and produces a value. Iteration resumes execution at the following statement without storing every result.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "lambda",
+          "name": "Lambda expressions",
+          "summary": "A lambda constructs a function from a single expression. It can accept arguments but cannot contain statements such as a for statement. Lambdas work well as short sorting keys; named def functions are clearer for complex logic.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "map-filter-reduce",
+          "name": "Map, filter and reduce",
+          "summary": "map applies a callable lazily to items; filter retains items whose predicate is truthy. functools.reduce combines values cumulatively with a binary callable. Supply an initializer when the empty-input case needs a defined result.",
+          "prereqs": [
+            "hof",
+            "lambda"
+          ]
+        },
+        {
+          "id": "comprehensions",
+          "name": "List, set and dictionary comprehensions",
+          "summary": "Comprehensions construct collections from iterables with optional filters. Lists preserve repetitions, sets remove duplicates, and dictionary comprehensions map keys to values. Nested clauses run in the same order as nested loops.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "iterators",
+          "name": "Iterators and iterable objects",
+          "summary": "An iterable provides an iterator through iter(). An iterator supplies successive values through next() and raises StopIteration when exhausted. A list can create fresh iterators; an individual iterator remembers its current position.",
+          "prereqs": [
+            "functions"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "py-1",
+          "concept": "functions",
+          "prompt": "What does a Python function return when no return statement runs?",
+          "options": [
+            "0",
+            "None",
+            "False",
+            "An empty string"
+          ],
+          "correct": 1,
+          "explanation": "Python implicitly returns None. Printing a value does not return it.",
+          "hint": "Distinguish displaying a value from returning it.",
+          "difficulty": 1,
+          "misconception": "Confusing print with return"
+        },
+        {
+          "id": "py-2",
+          "concept": "functions",
+          "prompt": "What is printed?\ndef add(a, b=2):\n    return a+b\nprint(add(3))",
+          "options": [
+            "2",
+            "3",
+            "5",
+            "TypeError"
+          ],
+          "correct": 2,
+          "explanation": "The default value of b is 2, so 3+2 is 5.",
+          "hint": "A default parameter is used when its argument is omitted.",
+          "difficulty": 1,
+          "misconception": "Ignoring default arguments"
+        },
+        {
+          "id": "py-5",
+          "concept": "hof",
+          "prompt": "Which expression passes a function to another function?",
+          "options": [
+            "apply(square(4))",
+            "apply(square)",
+            "apply(\"square\")",
+            "square = 4"
+          ],
+          "correct": 1,
+          "explanation": "apply(square) passes the function object; square(4) calls it first.",
+          "hint": "Parentheses execute a function.",
+          "difficulty": 2,
+          "misconception": "Confusing a function reference with a call"
+        },
+        {
+          "id": "py-6",
+          "concept": "hof",
+          "prompt": "Which operation makes a function higher-order?",
+          "options": [
+            "Using a loop",
+            "Returning an integer",
+            "Accepting another function",
+            "Printing a value"
+          ],
+          "correct": 2,
+          "explanation": "A higher-order function accepts a function or returns a function.",
+          "hint": "Consider whether functions are being treated as values.",
+          "difficulty": 1,
+          "misconception": "Misidentifying higher-order functions"
+        },
+        {
+          "id": "py-11",
+          "concept": "closures",
+          "prompt": "What does a closure retain?",
+          "options": [
+            "Only global variables",
+            "Access to enclosing function variables",
+            "A copy of every module",
+            "Only its own parameters"
+          ],
+          "correct": 1,
+          "explanation": "A closure retains access to variables from its enclosing lexical scope.",
+          "hint": "The outer function can finish while the inner function keeps access.",
+          "difficulty": 2,
+          "misconception": "Confusing enclosing and global scope"
+        },
+        {
+          "id": "py-12",
+          "concept": "closures",
+          "prompt": "What is printed?\ndef outer(x):\n    def inner():\n        return x\n    return inner\nf = outer(7)\nprint(f())",
+          "options": [
+            "None",
+            "7",
+            "inner",
+            "NameError"
+          ],
+          "correct": 1,
+          "explanation": "inner closes over x, retaining access to 7 after outer returns.",
+          "hint": "f holds the returned inner function.",
+          "difficulty": 3,
+          "misconception": "Believing enclosing variables disappear"
+        },
+        {
+          "id": "py-13",
+          "concept": "decorators",
+          "prompt": "@log above def work() is equivalent to which assignment?",
+          "options": [
+            "work = log(work)",
+            "log = work(log)",
+            "work = log()",
+            "work = work(log)"
+          ],
+          "correct": 0,
+          "explanation": "A decorator is called with the original function; its return value replaces that function.",
+          "hint": "The original callable is the decorator’s argument.",
+          "difficulty": 2,
+          "misconception": "Confusing decorator application"
+        },
+        {
+          "id": "py-14",
+          "concept": "decorators",
+          "prompt": "Why should a wrapper return func(*args, **kwargs)?",
+          "options": [
+            "To print the result",
+            "To preserve the wrapped function’s return value",
+            "To create a class",
+            "To stop all exceptions"
+          ],
+          "correct": 1,
+          "explanation": "Without return, the wrapper discards the result and implicitly returns None.",
+          "hint": "What would the caller receive without return?",
+          "difficulty": 2,
+          "misconception": "Discarding a wrapped return value"
+        },
+        {
+          "id": "py-15",
+          "concept": "decorators",
+          "prompt": "With @first above @second, which transformation is applied first?",
+          "options": [
+            "first",
+            "second",
+            "Both simultaneously",
+            "Neither"
+          ],
+          "correct": 1,
+          "explanation": "The transformation is first(second(function)); second is applied first.",
+          "hint": "Read stacked decorator application from bottom to top.",
+          "difficulty": 3,
+          "misconception": "Confusing decorator application order"
+        },
+        {
+          "id": "py-16",
+          "concept": "generators",
+          "prompt": "Which keyword pauses a generator and produces a value?",
+          "options": [
+            "return",
+            "break",
+            "yield",
+            "pass"
+          ],
+          "correct": 2,
+          "explanation": "yield suspends execution and saves state until iteration resumes.",
+          "hint": "It allows values to be produced lazily.",
+          "difficulty": 1,
+          "misconception": "Confusing yield with return"
+        },
+        {
+          "id": "py-17",
+          "concept": "generators",
+          "prompt": "After exhausting a generator, what does next(g) normally raise?",
+          "options": [
+            "ValueError",
+            "StopIteration",
+            "IndexError",
+            "Nothing"
+          ],
+          "correct": 1,
+          "explanation": "StopIteration signals that the iterator has no further values.",
+          "hint": "The iterator protocol has a specific completion signal.",
+          "difficulty": 2,
+          "misconception": "Misunderstanding iterator exhaustion"
+        },
+        {
+          "id": "syllabus-lambda-1",
+          "concept": "lambda",
+          "prompt": "What is (lambda x: x * 3)(4)?",
+          "options": [
+            "7",
+            "12",
+            "4",
+            "A function object"
+          ],
+          "correct": 1,
+          "explanation": "Calling the lambda binds x to 4 and evaluates 4 * 3.",
+          "hint": "A sort key does not replace the original items.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-map-filter-reduce-1",
+          "concept": "map-filter-reduce",
+          "prompt": "What is list(filter(lambda x: x % 2 == 0, [1, 2, 3, 4]))?",
+          "options": [
+            "[1, 3]",
+            "[False, True, False, True]",
+            "[2, 4]",
+            "[1, 2, 3, 4]"
+          ],
+          "correct": 2,
+          "explanation": "filter keeps input values for which the predicate is true.",
+          "hint": "Check whether an initializer was supplied.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-comprehensions-1",
+          "concept": "comprehensions",
+          "prompt": "What is {x % 2 for x in [1, 2, 3, 4]}?",
+          "options": [
+            "[1, 0, 1, 0]",
+            "{1, 2, 3, 4}",
+            "{0: 1}",
+            "{0, 1}"
+          ],
+          "correct": 3,
+          "explanation": "A set comprehension removes duplicate remainder values.",
+          "hint": "Distinguish dictionary and set comprehensions.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-iterators-1",
+          "concept": "iterators",
+          "prompt": "What signals that an iterator has no more items?",
+          "options": [
+            "StopIteration",
+            "IndexError in every case",
+            "Returning 0",
+            "Returning an empty string"
+          ],
+          "correct": 0,
+          "explanation": "The iterator protocol signals exhaustion by raising StopIteration.",
+          "hint": "An iterator remembers its current position.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-lambda-2",
+          "concept": "lambda",
+          "prompt": "What is sorted(['bbb', 'a', 'cc'], key=lambda s: len(s))?",
+          "options": [
+            "['bbb', 'cc', 'a']",
+            "['a', 'bbb', 'cc']",
+            "[1, 2, 3]",
+            "['a', 'cc', 'bbb']"
+          ],
+          "correct": 3,
+          "explanation": "The key computes length, but sorted returns the original strings ordered by that key.",
+          "hint": "A sort key does not replace the original items.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-map-filter-reduce-2",
+          "concept": "map-filter-reduce",
+          "prompt": "What does functools.reduce(lambda a, b: a + b, [], 10) return?",
+          "options": [
+            "10",
+            "0",
+            "None",
+            "It always raises TypeError"
+          ],
+          "correct": 0,
+          "explanation": "With no items, reduce returns the supplied initializer.",
+          "hint": "Check whether an initializer was supplied.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-comprehensions-2",
+          "concept": "comprehensions",
+          "prompt": "What is {x: x*x for x in [2, 3]}?",
+          "options": [
+            "[4, 9]",
+            "{2: 4, 3: 9}",
+            "{4, 9}",
+            "{4: 2, 9: 3}"
+          ],
+          "correct": 1,
+          "explanation": "The expression before the colon is the key and the expression after it is the value.",
+          "hint": "Distinguish dictionary and set comprehensions.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-iterators-2",
+          "concept": "iterators",
+          "prompt": "After it = iter([4, 5]) and next(it), what is list(it)?",
+          "options": [
+            "[4, 5]",
+            "[]",
+            "[5]",
+            "[4]"
+          ],
+          "correct": 2,
+          "explanation": "next consumes 4, so only 5 remains in that iterator.",
+          "hint": "An iterator remembers its current position.",
+          "difficulty": 2,
+          "misconception": ""
+        }
+      ],
+      "description": "University Python syllabus • 6 contact hours. Includes concise reference notes and a starter practice bank."
+    },
+    {
+      "key": "concurrency",
+      "name": "Python III — Concurrency and Performance",
+      "concepts": [
+        {
+          "id": "functions",
+          "name": "Functions",
+          "summary": "Functions are reusable blocks defined with def. Parameters receive arguments; return passes a value to the caller.",
+          "prereqs": []
+        },
+        {
+          "id": "exceptions",
+          "name": "Exceptions",
+          "summary": "try contains risky operations; except handles matching exceptions. finally runs on leaving the construct; else runs when the try block completes without an exception.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "threads",
+          "name": "Multithreading and synchronization",
+          "summary": "Threads share process memory and suit many I/O-bound tasks. Protect shared invariants with locks. On ordinary GIL-enabled CPython builds, Python bytecode is not executed in parallel across threads; native extensions and free-threaded builds change this context.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "processes",
+          "name": "Multiprocessing",
+          "summary": "Processes have separate address spaces and can run CPU-bound Python work in parallel. Process pools serialize submitted arguments and results. On Windows, protect process startup with if __name__ == '__main__' and use importable worker functions.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "asyncio",
+          "name": "Asyncio and asynchronous programming",
+          "summary": "async def defines a coroutine function. Awaiting compatible I/O lets the event loop schedule other tasks; creating a coroutine alone does not run it. asyncio.gather can coordinate awaitables. Blocking calls inside a coroutine can stall the event loop.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "profiling",
+          "name": "Profiling and optimization",
+          "summary": "Measure representative workloads before optimizing. cProfile identifies where execution time is spent; timeit measures small snippets. Improve algorithmic complexity before micro-optimizations and verify outputs remain equivalent.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "memory",
+          "name": "Memory management and garbage collection",
+          "summary": "In CPython, reference counting releases many unreachable objects promptly and cyclic garbage collection handles eligible reference cycles. del removes a binding, not necessarily the underlying object. Use tracemalloc to inspect Python allocation patterns.",
+          "prereqs": [
+            "functions"
+          ]
+        },
+        {
+          "id": "logging",
+          "name": "Error logging",
+          "summary": "logging supports severity levels, handlers and formatters. logger.exception inside an exception handler records a traceback. Avoid logging credentials or sensitive payloads. Catch expected exceptions where useful recovery is possible.",
+          "prereqs": [
+            "exceptions"
+          ]
+        },
+        {
+          "id": "assertions",
+          "name": "Assertions and validation",
+          "summary": "assert checks an internal assumption and raises AssertionError on failure. Python optimization may remove assertions. Validate external input using explicit checks and exceptions rather than assertions.",
+          "prereqs": [
+            "exceptions"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "py-1",
+          "concept": "functions",
+          "prompt": "What does a Python function return when no return statement runs?",
+          "options": [
+            "0",
+            "None",
+            "False",
+            "An empty string"
+          ],
+          "correct": 1,
+          "explanation": "Python implicitly returns None. Printing a value does not return it.",
+          "hint": "Distinguish displaying a value from returning it.",
+          "difficulty": 1,
+          "misconception": "Confusing print with return"
+        },
+        {
+          "id": "py-2",
+          "concept": "functions",
+          "prompt": "What is printed?\ndef add(a, b=2):\n    return a+b\nprint(add(3))",
+          "options": [
+            "2",
+            "3",
+            "5",
+            "TypeError"
+          ],
+          "correct": 2,
+          "explanation": "The default value of b is 2, so 3+2 is 5.",
+          "hint": "A default parameter is used when its argument is omitted.",
+          "difficulty": 1,
+          "misconception": "Ignoring default arguments"
+        },
+        {
+          "id": "py-18",
+          "concept": "exceptions",
+          "prompt": "When does a finally block run?",
+          "options": [
+            "Only on failure",
+            "Only on success",
+            "On leaving try/except, with or without an exception",
+            "Never with return"
+          ],
+          "correct": 2,
+          "explanation": "finally is for cleanup and runs on normal completion, exceptions, and return (barring process termination).",
+          "hint": "Cleanup must happen in either case.",
+          "difficulty": 2,
+          "misconception": "Believing finally only runs on errors"
+        },
+        {
+          "id": "py-19",
+          "concept": "exceptions",
+          "prompt": "Which block runs if try completes without an exception?",
+          "options": [
+            "except",
+            "else",
+            "raise",
+            "catch"
+          ],
+          "correct": 1,
+          "explanation": "The optional else block runs only when try completes without an exception.",
+          "hint": "There is a separate branch for success.",
+          "difficulty": 1,
+          "misconception": "Confusing else and finally"
+        },
+        {
+          "id": "syllabus-threads-1",
+          "concept": "threads",
+          "prompt": "Two threads update shared state using multiple steps. What protects the critical section?",
+          "options": [
+            "A separate unrelated lock per thread",
+            "A shared lock used by both threads",
+            "A print statement",
+            "Renaming the variable"
+          ],
+          "correct": 1,
+          "explanation": "Both threads must coordinate using the same synchronization mechanism.",
+          "hint": "Consider what the tasks spend time doing.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-processes-1",
+          "concept": "processes",
+          "prompt": "Why guard process creation with if __name__ == '__main__' on Windows?",
+          "options": [
+            "To share all variables automatically",
+            "To disable serialization",
+            "To avoid recursive process creation during module import",
+            "To remove the need for worker functions"
+          ],
+          "correct": 2,
+          "explanation": "Spawned workers import the module, so startup code must not run again on import.",
+          "hint": "Parallel work also has coordination costs.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-asyncio-1",
+          "concept": "asyncio",
+          "prompt": "Which pause yields control without blocking the asyncio event loop?",
+          "options": [
+            "time.sleep(1)",
+            "A busy while loop",
+            "input()",
+            "await asyncio.sleep(1)"
+          ],
+          "correct": 3,
+          "explanation": "asyncio.sleep suspends the current coroutine cooperatively.",
+          "hint": "A call alone does not schedule an async body.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-profiling-1",
+          "concept": "profiling",
+          "prompt": "Which tool is intended to time small Python snippets repeatedly?",
+          "options": [
+            "timeit",
+            "pickle",
+            "logging",
+            "argparse"
+          ],
+          "correct": 0,
+          "explanation": "timeit reduces common timing mistakes when benchmarking short snippets.",
+          "hint": "Optimize the work that actually dominates runtime.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-memory-1",
+          "concept": "memory",
+          "prompt": "If a and b reference the same list, what does del a do?",
+          "options": [
+            "Always destroys the list",
+            "Removes the binding a while b still refers to the list",
+            "Deletes b as well",
+            "Clears the list contents"
+          ],
+          "correct": 1,
+          "explanation": "Removing one reference does not destroy an object that remains referenced.",
+          "hint": "Distinguish an object from its bindings.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-logging-1",
+          "concept": "logging",
+          "prompt": "Which logging call includes the active exception traceback by default?",
+          "options": [
+            "logger.info('Failed')",
+            "logger.debug('Failed')",
+            "logger.exception('Failed')",
+            "print('Failed')"
+          ],
+          "correct": 2,
+          "explanation": "logger.exception is designed for use within an exception handler.",
+          "hint": "Logs may be accessible beyond the immediate process.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-assertions-1",
+          "concept": "assertions",
+          "prompt": "Why should assert not be the only validation for user input?",
+          "options": [
+            "Assertions always encrypt data",
+            "Assertions accept only strings",
+            "Assertions cannot raise errors",
+            "Assertions can be disabled by optimization"
+          ],
+          "correct": 3,
+          "explanation": "Input validation must still operate when Python is run with optimization.",
+          "hint": "Validation must work in every execution mode.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-threads-2",
+          "concept": "threads",
+          "prompt": "Many tasks mostly wait for network responses. What is a reasonable use of threads?",
+          "options": [
+            "Guarantee parallel execution of all Python bytecode",
+            "Give each thread isolated process memory",
+            "Eliminate all synchronization needs",
+            "Overlap waiting I/O operations"
+          ],
+          "correct": 3,
+          "explanation": "Threads can overlap I/O waits but still share memory and need coordination.",
+          "hint": "Consider what the tasks spend time doing.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-processes-2",
+          "concept": "processes",
+          "prompt": "Why can sending huge inputs to a process pool reduce its speed benefit?",
+          "options": [
+            "Serialization and inter-process transfer add overhead",
+            "Processes share every Python object automatically",
+            "Processes cannot run Python",
+            "A pool always runs only one task"
+          ],
+          "correct": 0,
+          "explanation": "A parallel strategy must account for data movement and startup costs.",
+          "hint": "Parallel work also has coordination costs.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-asyncio-2",
+          "concept": "asyncio",
+          "prompt": "What happens when an async function is called without awaiting or scheduling its returned coroutine?",
+          "options": [
+            "The body finishes synchronously",
+            "A coroutine object is created but its body has not run",
+            "A new OS process starts",
+            "The result is always None"
+          ],
+          "correct": 1,
+          "explanation": "Coroutine creation and coroutine execution are separate steps.",
+          "hint": "A call alone does not schedule an async body.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-profiling-2",
+          "concept": "profiling",
+          "prompt": "Profiling shows repeated linear searches dominate a workload. What should be considered first?",
+          "options": [
+            "Rename local variables",
+            "Delete all tests",
+            "An appropriate indexed lookup structure, then remeasure",
+            "Optimize unrelated print formatting"
+          ],
+          "correct": 2,
+          "explanation": "Target the measured bottleneck and check that the optimized program remains correct.",
+          "hint": "Optimize the work that actually dominates runtime.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-memory-2",
+          "concept": "memory",
+          "prompt": "Why can deleting one name fail to reduce live memory usage?",
+          "options": [
+            "del always copies the object",
+            "Every deleted object becomes global",
+            "Python never releases objects",
+            "Other references may still keep the object alive"
+          ],
+          "correct": 3,
+          "explanation": "Object lifetime depends on reachability, not just one variable name.",
+          "hint": "Distinguish an object from its bindings.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-logging-2",
+          "concept": "logging",
+          "prompt": "Which item should be excluded or redacted from application logs?",
+          "options": [
+            "Authentication tokens",
+            "An error category",
+            "A request duration",
+            "A non-sensitive event name"
+          ],
+          "correct": 0,
+          "explanation": "Tokens are credentials and can grant access if exposed.",
+          "hint": "Logs may be accessible beyond the immediate process.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-assertions-2",
+          "concept": "assertions",
+          "prompt": "What is a robust way to reject an invalid external age value?",
+          "options": [
+            "Only assert age >= 0",
+            "An explicit condition raising ValueError",
+            "A debug log with no rejection",
+            "Disabling exception handling"
+          ],
+          "correct": 1,
+          "explanation": "Explicit validation is not removed by optimized execution.",
+          "hint": "Validation must work in every execution mode.",
+          "difficulty": 2,
+          "misconception": ""
+        }
+      ],
+      "description": "University Python syllabus • 6 contact hours. Includes concise reference notes and a starter practice bank."
+    },
+    {
+      "key": "data",
+      "name": "Python IV — Libraries and Data Handling",
+      "concepts": [
+        {
+          "id": "numpy",
+          "name": "NumPy arrays and vectorization",
+          "summary": "NumPy arrays store typed multidimensional data. Elementwise operations and broadcasting avoid many Python-level loops. Broadcasting compares trailing dimensions: each pair must match or include a dimension of size one.",
+          "prereqs": []
+        },
+        {
+          "id": "pandas",
+          "name": "Pandas selection and cleaning",
+          "summary": "A DataFrame holds labeled columns and rows. loc selects by labels and iloc by integer positions. Inspect missing values with isna and choose fillna or dropna based on meaning. Avoid silently discarding useful observations.",
+          "prereqs": []
+        },
+        {
+          "id": "aggregation",
+          "name": "Pandas grouping and joins",
+          "summary": "groupby splits rows into groups for aggregation such as sum or mean. merge combines tables using keys; repeated keys can multiply rows. Check key uniqueness and choose inner or left joins based on required coverage.",
+          "prereqs": [
+            "pandas"
+          ]
+        },
+        {
+          "id": "matplotlib",
+          "name": "Matplotlib plotting",
+          "summary": "Matplotlib figures contain Axes. Use fig, ax = plt.subplots(), then ax.plot for a line, ax.scatter for points or ax.bar for categories. Label axes, include units and save figures with fig.savefig.",
+          "prereqs": [
+            "numpy"
+          ]
+        },
+        {
+          "id": "seaborn",
+          "name": "Seaborn statistical visualization",
+          "summary": "Seaborn builds statistical plotting interfaces on Matplotlib and works well with labeled data. hue separates groups, boxplot summarizes distributions and heatmap displays a matrix. A visual association alone does not establish causation.",
+          "prereqs": [
+            "pandas",
+            "matplotlib"
+          ]
+        },
+        {
+          "id": "regex",
+          "name": "Regular expressions",
+          "summary": "Regular expressions describe text patterns. re.search finds a match anywhere, re.match starts at the beginning and re.fullmatch requires the whole string. Raw string literals reduce backslash escaping. Use groups to extract parts.",
+          "prereqs": []
+        },
+        {
+          "id": "csv",
+          "name": "CSV file handling",
+          "summary": "The csv module reads and writes delimited rows with quoting rules. Open CSV files with newline='' and an explicit encoding. DictReader maps column names to values, usually strings; convert numeric fields deliberately.",
+          "prereqs": []
+        },
+        {
+          "id": "json",
+          "name": "JSON serialization",
+          "summary": "json.loads decodes JSON text and json.dumps encodes compatible Python values. JSON objects have string keys and JSON arrays map to lists. Distinguish missing keys from explicit null values; validate received structures.",
+          "prereqs": []
+        },
+        {
+          "id": "xml",
+          "name": "XML parsing",
+          "summary": "XML represents nested elements with attributes and text. ElementTree parses trusted XML and supports element traversal. Namespaces qualify tag names. For untrusted input use a hardened parser and enforce size limits.",
+          "prereqs": []
+        }
+      ],
+      "questions": [
+        {
+          "id": "syllabus-numpy-1",
+          "concept": "numpy",
+          "prompt": "Can arrays of shapes (3, 1) and (1, 4) be added by broadcasting, and what is the result shape?",
+          "options": [
+            "(3, 4)",
+            "(1, 1)",
+            "(4, 3)",
+            "They are incompatible"
+          ],
+          "correct": 0,
+          "explanation": "Trailing dimensions match or have size one, producing a 3 by 4 result.",
+          "hint": "Consider array semantics rather than list semantics.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-pandas-1",
+          "concept": "pandas",
+          "prompt": "Which selects the first row by integer position?",
+          "options": [
+            "df.loc['first']",
+            "df.iloc[0]",
+            "df.columns[0]",
+            "df.head(0)"
+          ],
+          "correct": 1,
+          "explanation": "iloc uses integer positions; loc uses labels.",
+          "hint": "A convenient default is not always meaningful.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-aggregation-1",
+          "concept": "aggregation",
+          "prompt": "Which join keeps every row from the left table?",
+          "options": [
+            "Inner join",
+            "Right join only",
+            "Left join",
+            "Cross join only"
+          ],
+          "correct": 2,
+          "explanation": "A left join preserves left-side rows and fills unmatched right values with missing data.",
+          "hint": "Think about every matching pair of rows.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-matplotlib-1",
+          "concept": "matplotlib",
+          "prompt": "Which Axes method is suitable for two numerical variables shown as individual points?",
+          "options": [
+            "ax.pie",
+            "ax.table",
+            "ax.set_title",
+            "ax.scatter"
+          ],
+          "correct": 3,
+          "explanation": "A scatter plot displays paired numerical observations.",
+          "hint": "Presentation should make the measurement clear.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-seaborn-1",
+          "concept": "seaborn",
+          "prompt": "Which plot best compares a numeric distribution across categories?",
+          "options": [
+            "sns.boxplot",
+            "A single pie slice",
+            "An unlabeled text box",
+            "A table of column names"
+          ],
+          "correct": 0,
+          "explanation": "A box plot summarizes central tendency and spread for each category.",
+          "hint": "Distinguish a pattern from a causal explanation.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-regex-1",
+          "concept": "regex",
+          "prompt": "Which function checks that an entire string matches a pattern?",
+          "options": [
+            "re.search",
+            "re.fullmatch",
+            "re.split",
+            "re.findall"
+          ],
+          "correct": 1,
+          "explanation": "fullmatch succeeds only when the complete string matches.",
+          "hint": "Consider the quantifier and the return type.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-csv-1",
+          "concept": "csv",
+          "prompt": "Why use csv.reader instead of splitting each line on commas?",
+          "options": [
+            "CSV never contains text",
+            "split automatically infers types",
+            "Quoted fields can contain commas",
+            "csv.reader encrypts rows"
+          ],
+          "correct": 2,
+          "explanation": "The CSV parser handles quoting and escaped delimiters.",
+          "hint": "A column name does not determine its runtime type.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-json-1",
+          "concept": "json",
+          "prompt": "What Python value results from json.loads('null')?",
+          "options": [
+            "False",
+            "'null'",
+            "0",
+            "None"
+          ],
+          "correct": 3,
+          "explanation": "JSON null is decoded as Python None.",
+          "hint": "Distinguish serialization from parsing.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-xml-1",
+          "concept": "xml",
+          "prompt": "In <book id=\"7\">Python</book>, what is id?",
+          "options": [
+            "An attribute",
+            "A child element",
+            "The root namespace",
+            "The text content"
+          ],
+          "correct": 0,
+          "explanation": "id is an attribute on book; Python is its text content.",
+          "hint": "A visible tag prefix belongs to namespace handling.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-numpy-2",
+          "concept": "numpy",
+          "prompt": "For a NumPy array a = np.array([1, 2, 3]), what is (a * 2).tolist()?",
+          "options": [
+            "[1, 2, 3, 1, 2, 3]",
+            "[1, 4, 9]",
+            "[2, 4, 6]",
+            "[3, 4, 5]"
+          ],
+          "correct": 2,
+          "explanation": "Array multiplication by a scalar is elementwise, unlike Python list repetition.",
+          "hint": "Consider array semantics rather than list semantics.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-pandas-2",
+          "concept": "pandas",
+          "prompt": "A column contains missing values. What should guide the choice between dropna and fillna?",
+          "options": [
+            "Always replace everything with zero",
+            "Always delete the whole dataset",
+            "Sort column names alphabetically",
+            "The meaning of missingness and analysis requirements"
+          ],
+          "correct": 3,
+          "explanation": "Missing values need a domain-appropriate policy to avoid biased results.",
+          "hint": "A convenient default is not always meaningful.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-aggregation-2",
+          "concept": "aggregation",
+          "prompt": "Both merge inputs contain repeated occurrences of the same key. What can happen?",
+          "options": [
+            "Matching rows produce multiple combinations",
+            "merge automatically deduplicates both sides",
+            "Exactly one row is always returned",
+            "All repeated keys are ignored"
+          ],
+          "correct": 0,
+          "explanation": "A many-to-many join pairs matching rows and can increase row counts substantially.",
+          "hint": "Think about every matching pair of rows.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-matplotlib-2",
+          "concept": "matplotlib",
+          "prompt": "Why label axes with units?",
+          "options": [
+            "To change the underlying data types",
+            "To make the plotted quantities interpretable",
+            "To guarantee a causal relationship",
+            "To remove outliers automatically"
+          ],
+          "correct": 1,
+          "explanation": "Axis labels and units explain what the visual encodes.",
+          "hint": "Presentation should make the measurement clear.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-seaborn-2",
+          "concept": "seaborn",
+          "prompt": "A scatter plot shows two quantities increasing together. What is justified?",
+          "options": [
+            "One quantity certainly causes the other",
+            "Confounding is impossible",
+            "An association is visible, but causation is not established",
+            "The sample must be unbiased"
+          ],
+          "correct": 2,
+          "explanation": "A plotted correlation alone cannot rule out confounding or reverse causality.",
+          "hint": "Distinguish a pattern from a causal explanation.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-regex-2",
+          "concept": "regex",
+          "prompt": "What is re.findall(r'\\d+', 'A12 B3')?",
+          "options": [
+            "['1', '2', '3']",
+            "['A12', 'B3']",
+            "[12, 3]",
+            "['12', '3']"
+          ],
+          "correct": 3,
+          "explanation": "The plus quantifier groups consecutive digits, and findall returns matching strings.",
+          "hint": "Consider the quantifier and the return type.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-csv-2",
+          "concept": "csv",
+          "prompt": "csv.DictReader returns the value '42' from an age column. Before arithmetic, what is needed?",
+          "options": [
+            "Validate and convert the string to a number",
+            "Assume it is already an integer",
+            "Encode it to bytes",
+            "Remove the entire row always"
+          ],
+          "correct": 0,
+          "explanation": "CSV text does not imply numeric typing; conversion can fail and should be handled.",
+          "hint": "A column name does not determine its runtime type.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-json-2",
+          "concept": "json",
+          "prompt": "What does json.dumps({'ok': True}) produce conceptually?",
+          "options": [
+            "A Python dict object",
+            "JSON text containing a lowercase true literal",
+            "An XML element",
+            "A pickle byte stream"
+          ],
+          "correct": 1,
+          "explanation": "dumps serializes compatible Python data into JSON text.",
+          "hint": "Distinguish serialization from parsing.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-xml-2",
+          "concept": "xml",
+          "prompt": "An XML parser finds no plain 'item' tags in a namespaced document. What should you check?",
+          "options": [
+            "Whether XML supports tags",
+            "Whether all attributes must be integers",
+            "Namespace-qualified tag names",
+            "Whether CSV quoting is enabled"
+          ],
+          "correct": 2,
+          "explanation": "Namespaces change the qualified names used when searching for elements.",
+          "hint": "A visible tag prefix belongs to namespace handling.",
+          "difficulty": 2,
+          "misconception": ""
+        }
+      ],
+      "description": "University Python syllabus • 6 contact hours. Includes concise reference notes and a starter practice bank."
+    },
+    {
+      "key": "applications",
+      "name": "Python V — Application Development",
+      "concepts": [
+        {
+          "id": "tkinter",
+          "name": "GUI programming with Tkinter",
+          "summary": "Tkinter uses widgets, geometry managers and an event loop. Pass a callable as a button command instead of calling it during construction. Keep callbacks short and schedule GUI updates on the GUI thread.",
+          "prereqs": []
+        },
+        {
+          "id": "pyqt",
+          "name": "GUI programming with PyQt",
+          "summary": "PyQt connects signals from widgets to slots or callables. QApplication manages the event loop. Long operations should use workers and communicate back through signals; widgets should be updated on the GUI thread.",
+          "prereqs": []
+        },
+        {
+          "id": "requests",
+          "name": "HTTP requests",
+          "summary": "requests sends HTTP requests and returns response objects. Specify a timeout, inspect status with raise_for_status and parse JSON only when expected. Network failures and invalid payloads require explicit handling.",
+          "prereqs": []
+        },
+        {
+          "id": "beautifulsoup",
+          "name": "HTML parsing with BeautifulSoup",
+          "summary": "BeautifulSoup parses HTML into a searchable tree. select uses CSS selectors; find and find_all locate tags. Parsing downloaded HTML does not execute page JavaScript. Respect site access rules and rate limits.",
+          "prereqs": [
+            "requests"
+          ]
+        },
+        {
+          "id": "selenium",
+          "name": "Browser automation with Selenium",
+          "summary": "Selenium controls a real browser and can interact with dynamic pages. Use explicit waits for conditions rather than fixed sleeps. Choose stable locators and always close browser resources with quit.",
+          "prereqs": [
+            "beautifulsoup"
+          ]
+        },
+        {
+          "id": "rest",
+          "name": "REST API integration",
+          "summary": "HTTP APIs expose resources through URLs and methods. GET retrieves, POST commonly creates, PUT replaces and DELETE removes. Validate status codes and payloads; keep credentials out of source and handle pagination and rate limits.",
+          "prereqs": [
+            "requests"
+          ]
+        },
+        {
+          "id": "sqlite",
+          "name": "SQLite databases",
+          "summary": "sqlite3 connects Python to a local database. Use placeholders with bound values to avoid SQL injection, commit intended writes and roll back failed transactions. Foreign key enforcement requires enabling the SQLite pragma on each connection.",
+          "prereqs": []
+        },
+        {
+          "id": "postgres",
+          "name": "PostgreSQL integration",
+          "summary": "PostgreSQL is a client-server relational database. A Python driver manages connections, parameters and transactions. Use bound values, rollback after transaction failure and release connections or return them to a pool. Keep credentials in configuration.",
+          "prereqs": [
+            "sqlite"
+          ]
+        },
+        {
+          "id": "integration",
+          "name": "End-to-end application design",
+          "summary": "Separate presentation, service logic and persistence. Validate external input at boundaries, propagate meaningful errors and write tests around key workflows. A small project can fetch data from an API, validate it, persist it and show it in a GUI.",
+          "prereqs": [
+            "rest",
+            "sqlite"
+          ]
+        }
+      ],
+      "questions": [
+        {
+          "id": "syllabus-tkinter-1",
+          "concept": "tkinter",
+          "prompt": "Which passes a handler to a Tkinter Button without immediately calling it?",
+          "options": [
+            "command=save()",
+            "command=save",
+            "command='save()'",
+            "command=save(None)"
+          ],
+          "correct": 1,
+          "explanation": "Passing the callable lets the event loop invoke it when clicked.",
+          "hint": "Consider which thread processes GUI events.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-pyqt-1",
+          "concept": "pyqt",
+          "prompt": "What connects a button event to application behavior in PyQt?",
+          "options": [
+            "A SQL foreign key",
+            "A CSV delimiter",
+            "A signal connected to a slot",
+            "A Python destructor"
+          ],
+          "correct": 2,
+          "explanation": "Signals announce events and connected slots handle them.",
+          "hint": "Widgets have a thread-affinity requirement.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-requests-1",
+          "concept": "requests",
+          "prompt": "Which option limits how long a requests call waits for network activity?",
+          "options": [
+            "verify=False",
+            "stream=False",
+            "allow_redirects=True",
+            "timeout=10"
+          ],
+          "correct": 3,
+          "explanation": "A timeout prevents waiting indefinitely; other flags control different behavior.",
+          "hint": "HTTP status and JSON parsing are separate concerns.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-beautifulsoup-1",
+          "concept": "beautifulsoup",
+          "prompt": "Why might data visible in a browser be missing from downloaded HTML?",
+          "options": [
+            "JavaScript may add it after the initial HTML loads",
+            "BeautifulSoup always executes JavaScript",
+            "All HTML is encrypted",
+            "CSS selectors only work on XML"
+          ],
+          "correct": 0,
+          "explanation": "An HTML parser does not run the page's JavaScript.",
+          "hint": "Read the selector as a tag and a class.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-selenium-1",
+          "concept": "selenium",
+          "prompt": "What is preferable when waiting for a dynamically inserted element?",
+          "options": [
+            "An arbitrary long sleep every time",
+            "An explicit wait for the required condition",
+            "Immediately accessing it without waiting",
+            "Repeatedly restarting the computer"
+          ],
+          "correct": 1,
+          "explanation": "Condition-based waits proceed when the element is ready or fail after a timeout.",
+          "hint": "Distinguish ending a session from navigating a page.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-rest-1",
+          "concept": "rest",
+          "prompt": "A paginated API returns a next-page token. How do you fetch the complete collection?",
+          "options": [
+            "Use only the first response",
+            "Assume every page has identical items",
+            "Follow pagination until no next page remains",
+            "Ignore response status"
+          ],
+          "correct": 2,
+          "explanation": "Pagination must be followed to avoid silently returning an incomplete collection.",
+          "hint": "Failures need a deliberate retry policy.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-sqlite-1",
+          "concept": "sqlite",
+          "prompt": "Which query safely binds a user-supplied email value?",
+          "options": [
+            "conn.execute('SELECT * FROM users WHERE email = ' + email)",
+            "Concatenating quoted input into SQL",
+            "Formatting input with an f-string",
+            "conn.execute('SELECT * FROM users WHERE email = ?', (email,))"
+          ],
+          "correct": 3,
+          "explanation": "Bound parameters separate data values from SQL structure.",
+          "hint": "Consider atomic changes rather than independent writes.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-postgres-1",
+          "concept": "postgres",
+          "prompt": "What should happen after a failed transaction before reusing its connection?",
+          "options": [
+            "Roll back the failed transaction",
+            "Ignore the failure and keep issuing queries",
+            "Delete all tables",
+            "Commit unconditionally"
+          ],
+          "correct": 0,
+          "explanation": "Rolling back returns the connection to a usable transaction state.",
+          "hint": "Opening a connection has a cost.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-integration-1",
+          "concept": "integration",
+          "prompt": "Which design makes an API-backed GUI easier to test?",
+          "options": [
+            "Put every operation inside one button callback",
+            "Separate API access, business logic and presentation",
+            "Hard-code credentials in the UI",
+            "Silently ignore database errors"
+          ],
+          "correct": 1,
+          "explanation": "Separating responsibilities allows each layer to be tested with controlled inputs.",
+          "hint": "Separate external dependencies from business behavior.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-tkinter-2",
+          "concept": "tkinter",
+          "prompt": "A GUI freezes while a callback performs a long download. What is the cause?",
+          "options": [
+            "Every button click closes the application",
+            "Tkinter cannot display strings",
+            "A label needs a different font",
+            "The callback blocks the GUI event loop"
+          ],
+          "correct": 3,
+          "explanation": "Long work prevents the event loop from processing input and repaint events.",
+          "hint": "Consider which thread processes GUI events.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-pyqt-2",
+          "concept": "pyqt",
+          "prompt": "A worker finishes a long computation. How should it request a widget update?",
+          "options": [
+            "Emit a signal handled on the GUI thread",
+            "Directly modify widgets from any thread",
+            "Replace QApplication for every result",
+            "Call the widget destructor"
+          ],
+          "correct": 0,
+          "explanation": "Signals allow the GUI thread to handle updates without unsafe cross-thread widget access.",
+          "hint": "Widgets have a thread-affinity requirement.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-requests-2",
+          "concept": "requests",
+          "prompt": "A server returns HTTP 404. What does response.raise_for_status() do?",
+          "options": [
+            "Converts 404 into success",
+            "Raises an HTTP error for that response",
+            "Retries forever",
+            "Automatically returns an empty dictionary"
+          ],
+          "correct": 1,
+          "explanation": "raise_for_status exposes unsuccessful HTTP status codes as exceptions.",
+          "hint": "HTTP status and JSON parsing are separate concerns.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-beautifulsoup-2",
+          "concept": "beautifulsoup",
+          "prompt": "What does soup.select('a.link') select?",
+          "options": [
+            "Every element whose id is link",
+            "Only XML root elements",
+            "Anchor elements with class link",
+            "All text containing a period"
+          ],
+          "correct": 2,
+          "explanation": "This CSS selector combines the a tag name with the link class.",
+          "hint": "Read the selector as a tag and a class.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-selenium-2",
+          "concept": "selenium",
+          "prompt": "After automation finishes, which operation releases the browser session?",
+          "options": [
+            "driver.refresh()",
+            "driver.back()",
+            "driver.title",
+            "driver.quit()"
+          ],
+          "correct": 3,
+          "explanation": "quit ends the WebDriver session and closes its associated browser windows.",
+          "hint": "Distinguish ending a session from navigating a page.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-rest-2",
+          "concept": "rest",
+          "prompt": "An API responds with a rate-limit error and retry instructions. What is appropriate?",
+          "options": [
+            "Respect the retry timing and apply bounded retries",
+            "Retry continuously without waiting",
+            "Assume the response is valid business data",
+            "Expose API keys in logs"
+          ],
+          "correct": 0,
+          "explanation": "Bounded backoff respects service limits and avoids an uncontrolled retry loop.",
+          "hint": "Failures need a deliberate retry policy.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-sqlite-2",
+          "concept": "sqlite",
+          "prompt": "Two related database updates must either both succeed or neither persist. What provides this?",
+          "options": [
+            "Two unrelated print calls",
+            "A transaction with commit or rollback",
+            "Converting the database to CSV",
+            "Concatenating the SQL strings"
+          ],
+          "correct": 1,
+          "explanation": "A transaction provides atomicity for the related changes.",
+          "hint": "Consider atomic changes rather than independent writes.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-postgres-2",
+          "concept": "postgres",
+          "prompt": "Why use a connection pool in a server application?",
+          "options": [
+            "Disable transactions permanently",
+            "Avoid SQL parameter binding",
+            "Reuse a bounded set of database connections",
+            "Store passwords in every query"
+          ],
+          "correct": 2,
+          "explanation": "Pooling reduces repeated connection setup while limiting connection count.",
+          "hint": "Opening a connection has a cost.",
+          "difficulty": 2,
+          "misconception": ""
+        },
+        {
+          "id": "syllabus-integration-2",
+          "concept": "integration",
+          "prompt": "How can a service that fetches an API be tested without making real network calls?",
+          "options": [
+            "Disable every assertion",
+            "Require the public service for every unit test",
+            "Hard-code a success result in production",
+            "Inject a controlled API client or test double"
+          ],
+          "correct": 3,
+          "explanation": "Dependency injection permits predictable success and failure tests.",
+          "hint": "Separate external dependencies from business behavior.",
+          "difficulty": 2,
+          "misconception": ""
+        }
+      ],
+      "description": "University Python syllabus • 6 contact hours. Includes concise reference notes and a starter practice bank."
+    }
+  ]
+}
