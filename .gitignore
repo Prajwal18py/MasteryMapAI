@@ -23,3 +23,4 @@ backend/models/local/
 *.sqlite
 *.sqlite3
 *.log
+/google-login-backup/

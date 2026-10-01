@@ -57,6 +57,7 @@ def pw_ok(x, h):
 @asynccontextmanager
 async def lifespan(app):
     init()
+    init_google()
     with db() as c:
         c.execute("UPDATE runs SET status='interrupted' WHERE status='running'")
     yield
@@ -1087,3 +1088,8 @@ app.include_router(router)
 
 from .learning import router as learning_router
 app.include_router(learning_router)
+
+
+# Google Identity Services integration
+from .google_login import init_google, install_google
+install_google(app, session, seed_subject, pw_hash, pw_ok, throttle)

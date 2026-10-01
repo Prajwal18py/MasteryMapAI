@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Check, Compass, Eye, EyeOff, LockKeyhole, Mail, Network, Pause, Play, Sparkles, UserRound } from "lucide-react";
+import GoogleSignIn from "./google-sign-in";
 import styles from "./premium-login.module.css";
 
 type Props = { onLogin: (user: any) => void; authenticate: (path: string, data: any) => Promise<any> };
@@ -69,6 +70,7 @@ export default function PremiumLogin({ onLogin, authenticate }: Props) {
           <div className={styles.eyebrow}>A NEW CHAPTER STARTS HERE</div>
           <h2>{create ? <>Make room for<br />your potential.</> : <>Good to have<br />you back.</>}</h2>
           <p className={styles.intro}>{create ? "A space for your subjects, your questions, and everything you’re becoming." : "Pick up where curiosity left off. Your learning space is ready for you."}</p>
+          <GoogleSignIn onLogin={onLogin} disabled={busy} />
           <div className={styles.modeSwitch} aria-label="Account options">
             <button type="button" aria-pressed={!create} disabled={busy} className={!create ? styles.active : ""} onClick={() => { setCreate(false); setError(""); }}>Sign in</button>
             <button type="button" aria-pressed={create} disabled={busy} className={create ? styles.active : ""} onClick={() => { setCreate(true); setError(""); }}>Create account</button>

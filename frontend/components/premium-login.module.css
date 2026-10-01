@@ -95,3 +95,13 @@
   .page{height:auto;min-height:100svh;grid-template-rows:auto}
   .story{min-height:490px}.entry{min-height:490px}
 }
+
+/* Google sign-in space: reduce decoration on laptop screens; never clip controls. */
+@media (min-width:761px) and (max-height:900px) {
+ .welcomeIcon,.features{display:none}
+ .intro{margin-bottom:10px;font-size:12px}
+ .formWrap h2{font-size:32px;margin-top:8px;margin-bottom:8px}
+ .modeSwitch{margin-bottom:12px}
+ .form{gap:10px}.field{height:42px}
+ .entry{overflow-y:auto}
+}

@@ -14,3 +14,4 @@ joblib==1.5.2
 python-docx==1.2.0
 python-pptx==1.0.2
 Pillow==11.3.0
+-r requirements-google.txt
